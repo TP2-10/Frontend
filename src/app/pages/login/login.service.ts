@@ -1,5 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { LoginIn } from './models/loginInterface';
+import { LoginResponse } from './models/LoginResponse';
+import { FormGroup } from '@angular/forms';
+import { Observable, map } from 'rxjs';
+import { throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +16,32 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  sigIn(user: any){
-    return this.http.post('/api/v1/auth/authenticate',user);
+  sigIn(userdata: LoginIn):Observable<LoginResponse>{
+    return this.http.post<LoginResponse>('http://localhost:8080/api/v1/auth/authenticate',userdata)
+    .pipe(
+      map(( res: LoginResponse) => {
+        console.log('Res = ' , res);
+        this.saveLocalStorage(res);
+        //this.res.next(res);
+        return res;
 
+      }),
+      catchError((err) => this.handlerError(err))
+    );
+
+  }
+
+  private saveLocalStorage(ResLogin: LoginResponse): void {
+    //const { status, response } = ResLogin;
+    localStorage.setItem('user', ResLogin.token);
+  }
+
+  private handlerError(err: any): Observable<never> {
+    let errorMessage = 'An errror occured retrienving data';
+    if (err) {
+      errorMessage = `Error: code ${err.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(() => err);
   }
 }
