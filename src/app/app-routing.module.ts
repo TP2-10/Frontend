@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { HomeComponent } from './pages/home/home.component';
+import { StoriesComponent } from './pages/stories/stories.component';
 
 const routes: Routes = [
   {
@@ -15,12 +18,39 @@ const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'dashboard',
-    component: DashboardComponent,
-  },
-  {
     path: 'forgotpassword',
     component: ForgotPasswordComponent,
+  },
+  //{
+  //  path: 'dashboard/profile',
+  //  component: UserProfileComponent,
+  //},
+  {
+    path: '',
+    component: DashboardComponent,
+    //canActivate: [AuthenticationGuard, VerificarTokenGuard],
+    children: [
+      {
+        path: 'dashboard',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home', component: HomeComponent
+      },
+      {
+        path: 'profile', component: UserProfileComponent
+      },
+      {
+        path: 'stories', component: StoriesComponent
+      },
+      {
+        path: 'login',
+        redirectTo: 'login',
+        pathMatch: 'full',
+      }
+      
+    ]
   }
 ];
 

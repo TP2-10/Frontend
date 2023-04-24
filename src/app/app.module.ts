@@ -14,6 +14,9 @@ import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { HomeComponent } from './pages/home/home.component';
+import { StoriesComponent } from './pages/stories/stories.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { MaterialModule } from './material.module';
     LoginComponent,
     DashboardComponent,
     ForgotPasswordComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SidenavComponent,
+    HomeComponent,
+    StoriesComponent
   ],
   imports: [
     BrowserModule,
