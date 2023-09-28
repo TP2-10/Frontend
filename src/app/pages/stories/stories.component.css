@@ -1,5 +1,5 @@
 .transition-effect {
-    animation: fadeIn 3s, src 3s ease-out;
+  animation: fadeIn 3s, src 3s ease-out;
   -webkit-animation: fadeIn 3s;
   -moz-animation: fadeIn 3s;
   -o-animation: fadeIn 3s;
@@ -12,29 +12,56 @@
     100% { opacity: 1; }
   }
 
-  @-moz-keyframes fadeIn {
+@-moz-keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
   
-  @-webkit-keyframes fadeIn {
+@-webkit-keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
   
-  @-o-keyframes fadeIn {
+@-o-keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
   
-  @-ms-keyframes fadeIn {
+@-ms-keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
 
-  .button-spacing {
-    margin-left: 50px;
+.button-spacing {
+  margin-left: 50px;
+}
+
+.animated-image {
+  animation: bounce 2s infinite; /* Agrega una animación de rebote */
+}
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-30px); /* Cambia esto para ajustar la altura del rebote */
+    }
+    60% {
+      transform: translateY(-15px); /* Cambia esto para ajustar la altura del rebote */
+    }
   }
+
+  
+  .button-animation {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .button-animation:hover {
+    transform: scale(1.1); /* Hace que el botón se agrande ligeramente al pasar el mouse por encima */
+  }
+  
+  
 
   
   

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 
-interface Animal {
+interface Storie {
   name: string;
   sound: string;
   image: string;
@@ -13,9 +13,9 @@ interface Animal {
   styleUrls: ['./stories.component.css']
 })
 export class StoriesComponent {
-  animalControl = new FormControl<Animal | null>(null, Validators.required);
+  storieControl = new FormControl<Storie | null>(null, Validators.required);
   selectFormControl = new FormControl('', Validators.required);
-  animals: Animal[] = [
+  stories: Storie[] = [
     {name: 'Dragons', sound: 'Woof!', image: 'assets/img/Stories_img/dragons.jpg' },
     {name: 'Cars', sound: 'Meow!', image: 'assets/img/Stories_img/cars.jpg'},
     {name: 'Robots', sound: 'Moo!', image: 'assets/img/Stories_img/robots.jpg'},

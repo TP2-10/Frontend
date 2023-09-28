@@ -1,19 +1,19 @@
-<h2 style="font-family: Arial rgb(247, 180, 10), sans-serif; color: #f97713;">¿De qué quieres que trate tu historia?</h2>
-<mat-form-field appearance="fill">
+<h2 style="font-family: 'Comic Sans MS', cursive; color: #f97713;" class="transition-effect">¿De qué quieres que trate tu historia?</h2>
+<mat-form-field appearance="fill" class="transition-effect">
   <mat-label>Historia</mat-label>
-  <mat-select [formControl]="animalControl" required>
+  <mat-select [formControl]="storieControl" required>
     <mat-option>--</mat-option>
-    <mat-option *ngFor="let animal of animals" [value]="animal">
-      {{animal.name}}
+    <mat-option *ngFor="let storie of stories" [value]="storie">
+      {{storie.name}}
     </mat-option>
   </mat-select>
-  <mat-error *ngIf="animalControl.hasError('required')">Please choose an option</mat-error>
-  <mat-hint>{{animalControl.value?.sound}}</mat-hint>
+  <mat-error *ngIf="storieControl.hasError('required')">Please choose an option</mat-error>
+  <mat-hint>{{storieControl.value?.sound}}</mat-hint>
 </mat-form-field>
 
- <img *ngIf="animalControl.value" [src]="animalControl.value.image" alt="Selected option image" [class.transition-effect]="animalControl.value" align="right">
+ <img *ngIf="storieControl.value" [src]="storieControl.value.image" alt="Selected option image" [class.transition-effect]="storieControl.value" align="right">
 
- <button mat-raised-button color="primary" class="button-spacing" (click)="onClick()">JUGAR</button>
+ <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="onClick()">JUGAR</button>
 
 
 

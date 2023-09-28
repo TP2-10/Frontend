@@ -1,12 +1,290 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+}
+
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+main {
+  margin: 50px auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.select-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.read-button {
+  margin-left: 20px;
+  border: none;
+  padding: 10px;
+  background-color: #ff9800;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.read-button:hover {
+  background-color: #ffa726;
+}
+
+.image-container {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.center-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.fadeInOut {
+  animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+  0% {
     opacity: 0;
-    transition: opacity 1s ease-in-out;
   }
-  
-  .container.loaded {
+  50% {
     opacity: 1;
   }
+  100% {
+    opacity: 0;
+  }
+}
+
+footer {
+  background-color: #ff9800;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+body {
+  /* set the background color */
+  background-color: #f2f2f2;
+  /* add a background image */
+  background-image: url('https://academyboomkids.ru/upload_f/image009.png');
+  /* set the background image size and position */
+  background-size: cover;
+  background-position: center center;
+  
+  /* create an animation for the background image */
+
+}
+
+/* create the keyframes for the background animation */
+@keyframes background-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ff9021;
+  text-shadow: 2px 2px 2px #d65108;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #696969;
+  margin-bottom: 40px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.select-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.select-label {
+  font-size: 1.2rem;
+  color: #696969;
+  margin-bottom: 10px;
+}
+
+.select {
+  width: 100%;
+  max-width: 300px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #ff9021;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: #d65108;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Background image */
+
+
+/* Title */
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 4rem;
+  text-align: center;
+  margin-top: 4rem;
+  color: #030303;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation: slide-up 1s ease;
+}
+
+/* Subtitle */
+
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-top: 2rem;
+  color: #040404;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation: slide-up 1s ease;
+}
+
+/* Mat select and button */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  animation: fade-in 1s ease;
+}
+
+.mat-select {
+  width: 300px;
+  margin-bottom: 1rem;
+}
+
+.mat-button {
+  background-color: #FBBF24;
+  color: #fff;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.mat-button:hover {
+  background-color: #F59E0B;
+}
+
+/* Image */
+
+img {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation: fade-in 1s ease;
+}
+
+/* Animations */
+
+@keyframes slide-up {
+  from {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
