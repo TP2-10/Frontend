@@ -9,7 +9,7 @@
   
       <!-- Login Form -->
       <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-        <input type="text" id="login" class="fadeIn second" formControlName="email" placeholder="login">
+        <input type="text" id="login" class="fadeIn second" formControlName="email" placeholder="email">
         <input type="password" id="password" class="fadeIn third" formControlName="password" placeholder="password">
         <input type="submit" class="fadeIn fourth" value="Log In">
       </form>
