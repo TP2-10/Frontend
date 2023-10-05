@@ -42,6 +42,10 @@ export class StoriesComponent implements OnInit {
   generatedStory: string;
   showStory: boolean = false; // Controla la visibilidad de la historia generada
   showform: boolean = true;
+  showQuestions: boolean = false;
+  generatedQuestions: any;
+  questions: [];
+  images: []
 
 
   constructor(
@@ -66,6 +70,7 @@ export class StoriesComponent implements OnInit {
   onClick(){
     this.showform = false;
     this.showStory = true;
+    
     //window.open('https://www.google.com/', '_blank');
     const formData = this.storyForm.value;
     console.log("FORMULARIO CAMPOS: " + JSON.stringify(formData))
@@ -86,8 +91,41 @@ export class StoriesComponent implements OnInit {
       // Asigna la historia generada a la variable
       this.generatedStory = generatedStory;
 
+      const images = response.images;
+
+      this.images = images
+
       console.log('GENERATED STORIE: ' + this.generatedStory)
     });
+  }
+
+  onClick2(){
+
+    this.showQuestions = true
+
+    const questionRequest2 = {
+      story: 'Lucas era un chico alegre y curioso que vivía en Epoca Medieval. Siempre estaba leyendo cuentos de dragones y aventuras heroicas que narran la lucha entre el bien y el mal. Estas historias lo volvieron muy fascinado queriendo buscar su propia aventura. Un día, un enorme dragón le dijo que debía recolectar cinco objetos legendarios para salvar el reino. Lucas estaba decidido a salir de su pequeño pueblo para cumplir con su objetivo. Así que se armó de valor y luego de decirle adiós a sus padres, salió en un viaje. Durante su viaje experimentó muchas aventuras, tanto buenas como malas. Saber luchar, buscar información en los libros, nadar en aguas turbulentas y luchar con dragones eran algunas de las cosas que aprendió y a lo que tuvo que enfrentarse. Finalmente, después de muchas aventuras, fue capaz de reunir los cinco objetos legendarios con los cuales vence al dragón malvado y salva al reino. La gente del reino lo felicitó por su gran logro y su heroísmo con el que enfrentó el peligro. Esta historia, llena de aventuras y fantasia, fue la última y más grande aventura de Lucas que espera sea una motivación para todos los niños de entre 8 años y en adelante para que salgan a enfrentarse a sus propias aventuras.'
+
+    };
+
+    const questionRequest = {
+      story: this.generatedStory
+
+    };
+
+    this.storieService.generateQuestions(questionRequest2).subscribe((response: any) => {
+      // Accede a la historia generada desde la respuesta
+      const generatedQuestions = response;
+
+      // Asigna la historia generada a la variable
+      this.generatedQuestions = generatedQuestions;
+
+      console.log("Response: " + JSON.stringify(this.generatedQuestions));
+
+      
+    });
+
+
   }
 
 }
