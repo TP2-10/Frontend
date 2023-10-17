@@ -8,29 +8,43 @@
     right: 0;
   }
   
-  .example-is-mobile .example-toolbar {
-    position: fixed;
-    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-    z-index: 2;
+  .example-toolbar {
+    background-color: #f97713; /* Cambia el color de fondo del toolbar */
+    color: #fff; /* Cambia el color del texto del toolbar */
   }
   
-  h1.example-app-name {
-    margin-left: 8px;
+  .example-app-name {
+    margin-left: 16px;
+    font-size: 24px; /* Cambia el tamaño de la fuente del nombre de la aplicación */
+    font-weight: bold;
   }
   
   .example-sidenav-container {
-    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-    flex: 1;
+    flex-grow: 1;
   }
   
-  .example-is-mobile .example-sidenav-container {
-    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
-       `<body>` to be our scrolling element for mobile layouts. */
-    flex: 1 0 auto;
+  .example-nav-list {
+    padding-top: 16px; /* Agrega espacio superior a la lista de navegación */
   }
-
-  .icono {
-    margin-right: 10%;
+  
+  .example-nav-item {
+    color: #333; /* Cambia el color del texto de los elementos de la lista */
+    font-size: 18px; /* Cambia el tamaño de la fuente de los elementos de la lista */
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 12px 24px; /* Aumenta el espacio de relleno para hacer clic más grande */
+    transition: background-color 0.3s ease; /* Agrega una transición suave al cambiar el color de fondo al pasar el ratón */
+  }
+  
+  .example-nav-item:hover {
+    background-color: #f2f2f2; /* Cambia el color de fondo al pasar el ratón */
+    color: #f97713; /* Cambia el color del texto al pasar el ratón */
+  }
+  
+  .example-sidenav-content {
+    padding: 24px;
+    background-color: #fff; /* Cambia el color de fondo del contenido principal */
+    min-height: calc(100vh - 56px); /* Ajusta la altura mínima para llenar la pantalla */
   }
   

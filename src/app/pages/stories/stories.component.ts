@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { StorieService } from './storie.service';
 import { trigger, state, style, transition, animate } from '@angular/animations'; 
+import { VoiceAssistantService } from './voice-assistant.service';
 
 interface Storie {
   name: string;
@@ -38,19 +39,34 @@ export class StoriesComponent implements OnInit {
     {name: 'Fox', sound: 'Wa-pa-pa-pa-pa-pa-pow!', image: 'assets/img/icons/multiaventura.jpg'},
   ];
 
+  audienceOptions = [
+    'Niños de 6 años',
+    'Niños de 7 años',
+    'Niños de 8 años',
+    'Niños de 9 años'
+  ];
+
   storyForm: FormGroup;
   generatedStory: string;
   showStory: boolean = false; // Controla la visibilidad de la historia generada
   showform: boolean = true;
   showQuestions: boolean = false;
+  showAudio: boolean = false;
+  showGenerateAudio: boolean = false;
   generatedQuestions: any;
   questions: [];
-  images: []
+  images: [];
+  audioData: Blob | null = null;
+  //audioUrl: string | null = null;
+  audioUrl: string;
+
+ 
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private storieService: StorieService
+    private storieService: StorieService,
+    private voiceAssistantService: VoiceAssistantService
     ) {
     // Constructor del componente
   }
@@ -96,7 +112,11 @@ export class StoriesComponent implements OnInit {
       this.images = images
 
       console.log('GENERATED STORIE: ' + this.generatedStory)
+
+      this.showGenerateAudio = true
     });
+
+    //this.generateAudio(this.generatedStory)
   }
 
   onClick2(){
@@ -113,7 +133,7 @@ export class StoriesComponent implements OnInit {
 
     };
 
-    this.storieService.generateQuestions(questionRequest2).subscribe((response: any) => {
+    this.storieService.generateQuestions(questionRequest).subscribe((response: any) => {
       // Accede a la historia generada desde la respuesta
       const generatedQuestions = response;
 
@@ -121,11 +141,50 @@ export class StoriesComponent implements OnInit {
       this.generatedQuestions = generatedQuestions;
 
       console.log("Response: " + JSON.stringify(this.generatedQuestions));
-
       
     });
 
 
+  }
+
+  playAudio(): void {
+    this.generateAudio()
+    if (this.audioData) {
+      if (this.audioUrl) {
+        URL.revokeObjectURL(this.audioUrl);
+      }
+      this.audioUrl = URL.createObjectURL(this.audioData);
+      console.log(this.audioUrl)
+      const audio = new Audio(this.audioUrl);
+      this.showAudio = true;
+      audio.play().then(() => {
+        // Audio is playing.
+      })
+      .catch(error => {
+        console.log(error);
+      });;
+    }
+
+    
+  }
+  
+  generateAudio() {
+    this.voiceAssistantService.generateAndPlayAudio(this.generatedStory).subscribe(
+      (response: any) => {
+        // response debería contener la URL del audio generado por el servidor
+        // Crear una URL a partir de la respuesta
+        console.log('URL: ')
+        this.audioUrl = URL.createObjectURL(response);
+        console.log('URL: ' + this.audioUrl)
+
+        const audio = new Audio(this.audioUrl);
+        this.showAudio = true;
+        //audio.play()
+      },
+      (error) => {
+        console.error('Error al obtener el audio', error);
+      }
+    );
   }
 
 }

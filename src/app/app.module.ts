@@ -29,7 +29,7 @@ import { StoriesComponent } from './pages/stories/stories.component';
     UserProfileComponent,
     SidenavComponent,
     HomeComponent,
-    StoriesComponent
+    StoriesComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +38,7 @@ import { StoriesComponent } from './pages/stories/stories.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

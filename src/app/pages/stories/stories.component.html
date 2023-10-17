@@ -1,3 +1,4 @@
+<div class="background-animation">
 
 <h2 style="font-family: 'Comic Sans MS', cursive; color: #f97713;" class="transition-effect">Configura y genera tu historia</h2>
 
@@ -36,20 +37,34 @@
 
       <mat-form-field appearance="fill" class="transition-effect">
         <mat-label>Público</mat-label>
-        <input matInput formControlName="audience">
+        <mat-select formControlName="audience">
+          <mat-option *ngFor="let option of audienceOptions" [value]="option">{{ option }}</mat-option>
+        </mat-select>
       </mat-form-field>
     </form>
   </div>
 
+
   <div class="form-fields">
-    <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="onClick()">JUGAR</button>
+    <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="onClick()" style="background-color: #f97713; color: #fff;">JUGAR</button>
   </div>
 
   <div class="image-container">
-    <img *ngIf="storyForm.value.storieControl.name" [src]="storyForm.value.storieControl.image" alt="Selected option image" class="transition-effect" align="right">
+    <img *ngIf="storyForm.value.storieControl" [src]="storyForm.value.storieControl.image" alt="Selected option image" class="transition-effect" align="right">
   </div>
   
 </div>
+
+<!-- audio-player.component.html -->
+<div class="generate-audio" *ngIf="showGenerateAudio">
+  <button (click)="generateAudio()">Generar Audio</button>
+</div>
+<!-- <button (click)="generateAudio()">Generar Audio</button>-->
+
+<audio controls *ngIf="showAudio">
+  <source [src]="audioUrl" type="audio/mp3">
+  Tu navegador no soporta la reproducción de audio.
+</audio>
 
 
 <div *ngIf="generatedStory" class="story-container-2" [@storyAnimation]="showStory ? 'in' : 'out'">
@@ -67,7 +82,7 @@
 </div>
 
 
-<div class="form-fields">
+<div *ngIf="showStory" class="form-fields">
   <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="onClick2()">PREGUNTAS</button>
 </div>
 
