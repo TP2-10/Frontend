@@ -173,7 +173,6 @@ export class StoriesComponent implements OnInit {
       (response: any) => {
         // response debería contener la URL del audio generado por el servidor
         // Crear una URL a partir de la respuesta
-        console.log('URL: ')
         this.audioUrl = URL.createObjectURL(response);
         console.log('URL: ' + this.audioUrl)
 

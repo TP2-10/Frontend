@@ -1,24 +1,19 @@
-<div class="background-animation">
+<div class="background-image">
+  <div class="form-container" [@fadeAnimation]="showform ? 'in' : 'out'">
+    <div class="form-fields">
+      <form [formGroup]="storyForm">
 
-<h2 style="font-family: 'Comic Sans MS', cursive; color: #f97713;" class="transition-effect">Configura y genera tu historia</h2>
-
-
-<div class="form-container" [@fadeAnimation]="showform ? 'in' : 'out'">
-  <div class="form-fields">
-    <form [formGroup]="storyForm">
-
-      <mat-form-field appearance="fill" class="transition-effect">
-        <mat-label>Historia</mat-label>
-        <mat-select formControlName="storieControl" required>
-          <mat-option>--</mat-option>
-          <mat-option *ngFor="let storie of stories" [value]="storie">
-            {{storie.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="storieControl.hasError('required')">Please choose an option</mat-error>
-        <mat-hint>{{storieControl.value?.sound}}</mat-hint>
-      </mat-form-field>
-
+        <mat-form-field appearance="fill" class="transition-effect">
+          <mat-label>Historia</mat-label>
+          <mat-select formControlName="storieControl" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let storie of stories" [value]="storie">
+              {{storie.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="storieControl.hasError('required')">Please choose an option</mat-error>
+          <mat-hint>{{storieControl.value?.sound}}</mat-hint>
+        </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect">
         <mat-label>Personaje Principal</mat-label>
@@ -41,18 +36,13 @@
           <mat-option *ngFor="let option of audienceOptions" [value]="option">{{ option }}</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <div class="form-fields">
+        <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="onClick()" style="background-color: #f97713; color: #fff;">JUGAR</button>
+      </div>
     </form>
   </div>
 
-
-  <div class="form-fields">
-    <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="onClick()" style="background-color: #f97713; color: #fff;">JUGAR</button>
-  </div>
-
-  <div class="image-container">
-    <img *ngIf="storyForm.value.storieControl" [src]="storyForm.value.storieControl.image" alt="Selected option image" class="transition-effect" align="right">
-  </div>
-  
 </div>
 
 <!-- audio-player.component.html -->
@@ -93,7 +83,12 @@
   <div *ngFor="let question of generatedQuestions">
     <h3>{{ question.id }} {{ question.question_text }}</h3>
     <ul>
-      <li *ngFor="let option of question.options">{{ option }}</li>
+      <li *ngFor="let option of question.options">
+        <label>
+          <input type="checkbox" [(ngModel)]="question.selectedOption" [value]="option">
+          {{ option }}
+        </label>
+      </li>
     </ul>
   </div>  
 </div>
