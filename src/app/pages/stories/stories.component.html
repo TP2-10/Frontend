@@ -3,31 +3,29 @@
     <div class="form-fields">
       <form [formGroup]="storyForm">
 
-        <mat-form-field appearance="fill" class="transition-effect">
+        <mat-form-field appearance="fill" class="transition-effect input-form">
           <mat-label>Historia</mat-label>
-          <mat-select formControlName="storieControl" required>
-            <mat-option>--</mat-option>
-            <mat-option *ngFor="let storie of stories" [value]="storie">
-              {{storie.name}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="storieControl.hasError('required')">Please choose an option</mat-error>
-          <mat-hint>{{storieControl.value?.sound}}</mat-hint>
+          <textarea matInput placeholder="Alex descubre un mundo secreto lleo de criaturas magicas..." formControlName="storieControl"></textarea>
         </mat-form-field>
 
-      <mat-form-field appearance="fill" class="transition-effect">
+      <mat-form-field appearance="fill" class="transition-effect input-form">
         <mat-label>Personaje Principal</mat-label>
-        <input matInput formControlName="mainCharacter">
+        <textarea matInput placeholder="Sarah - a young woman in her late twenties who left her small hometown several years ago in search of more fulfilling opportunities. She is determined and hardworking but also feels a sense of nostalgia and attachment to her hometown. 
+        Emily - Sarah's childhood best friend who still lives in the town. She is warm and friendly but seems to be harboring a secret.
+        
+        Tom - the town's sheriff who is struggling to keep the peace as the town falls deeper into darkness. He is stern but fair and determined to protect the town." 
+        
+        formControlName="mainCharacter"></textarea>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="transition-effect">
+      <mat-form-field appearance="fill" class="transition-effect input-form">
         <mat-label>Lugar</mat-label>
-        <input matInput formControlName="place">
+        <textarea matInput placeholder="La historia toma lugar en una pequeña aldea magica..." formControlName="place"></textarea>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="transition-effect">
+      <mat-form-field appearance="fill" class="transition-effect input-form">
         <mat-label>Género</mat-label>
-        <input matInput formControlName="genre">
+        <input matInput placeholder="Ejemplo: Fantansia, Aventuras, Misterio, etc." matInput formControlName="genre">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect">
@@ -43,53 +41,58 @@
     </form>
   </div>
 
+  <div class="form-fields">
+    <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="prueba()" style="background-color: #f97713; color: #fff;">PRUEBA</button>
+  </div>
+
 </div>
 
-<!-- audio-player.component.html -->
-<div class="generate-audio" *ngIf="showGenerateAudio">
-  <button (click)="generateAudio()">Generar Audio</button>
+<div class="new-container" *ngIf="showNewContainer">
+  <!-- audio-player.component.html -->
+  <div class="generate-audio" *ngIf="showGenerateAudio">
+    <button (click)="generateAudio()">Generar Audio</button>
+  </div>
+  <!-- <button (click)="generateAudio()">Generar Audio</button>-->
+
+  <audio controls *ngIf="showAudio">
+    <source [src]="audioUrl" type="audio/mp3">
+    Tu navegador no soporta la reproducción de audio.
+  </audio>
+
+
+  <div *ngIf="generatedStory" class="story-container-2" [@storyAnimation]="showStory ? 'in' : 'out'">
+      <!-- Aquí mostrarás la historia -->
+      {{ generatedStory }}
+  </div>
+
+
+
+  <!-- Mostrar las imágenes generadas -->
+  <div class="image-container"[@storyAnimation]="showStory ? 'in' : 'out'">
+    <ng-container *ngFor="let imageUrl of images">
+      <img [src]="imageUrl" alt="Generated Image" />
+    </ng-container>
+  </div>
+
+
+  <div *ngIf="showStory" class="form-fields">
+    <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="onClick2()">PREGUNTAS</button>
+  </div>
+
+
+  <!-- Mostrar las preguntas -->
+  <div *ngIf="showQuestions" class="story-container-2" [@storyAnimation]="showQuestions ? 'in' : 'out'">
+    <!-- Aquí mostrarás las preguntas -->
+    <div *ngFor="let question of generatedQuestions">
+      <h3>{{ question.id }} {{ question.question_text }}</h3>
+      <ul>
+        <li *ngFor="let option of question.options">
+          <label>
+            <input type="checkbox" [(ngModel)]="question.selectedOption" [value]="option">
+            {{ option }}
+          </label>
+        </li>
+      </ul>
+    </div>  
+  </div>
 </div>
-<!-- <button (click)="generateAudio()">Generar Audio</button>-->
-
-<audio controls *ngIf="showAudio">
-  <source [src]="audioUrl" type="audio/mp3">
-  Tu navegador no soporta la reproducción de audio.
-</audio>
-
-
-<div *ngIf="generatedStory" class="story-container-2" [@storyAnimation]="showStory ? 'in' : 'out'">
-    <!-- Aquí mostrarás la historia -->
-    {{ generatedStory }}
-</div>
-
-
-
-<!-- Mostrar las imágenes generadas -->
-<div class="image-container"[@storyAnimation]="showStory ? 'in' : 'out'">
-  <ng-container *ngFor="let imageUrl of images">
-    <img [src]="imageUrl" alt="Generated Image" />
-  </ng-container>
-</div>
-
-
-<div *ngIf="showStory" class="form-fields">
-  <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="onClick2()">PREGUNTAS</button>
-</div>
-
-
-<!-- Mostrar las preguntas -->
-<div *ngIf="showQuestions" class="story-container-2" [@storyAnimation]="showQuestions ? 'in' : 'out'">
-  <!-- Aquí mostrarás las preguntas -->
-  <div *ngFor="let question of generatedQuestions">
-    <h3>{{ question.id }} {{ question.question_text }}</h3>
-    <ul>
-      <li *ngFor="let option of question.options">
-        <label>
-          <input type="checkbox" [(ngModel)]="question.selectedOption" [value]="option">
-          {{ option }}
-        </label>
-      </li>
-    </ul>
-  </div>  
-</div>
-

@@ -78,6 +78,12 @@
     max-width: 400px; /* Ajusta el ancho máximo del contenedor de formularios según tus necesidades */
     text-align: center;
   }
+
+  .input-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
   
   .image-container {
     flex: 1; /* La imagen ocupa todo el espacio disponible en el contenedor */
@@ -172,4 +178,13 @@
   align-items: center;
 }
 
+.new-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para que la imagen de fondo sea visible */
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
   

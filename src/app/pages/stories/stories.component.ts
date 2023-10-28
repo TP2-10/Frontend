@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { StorieService } from './storie.service';
 import { trigger, state, style, transition, animate } from '@angular/animations'; 
 import { VoiceAssistantService } from './voice-assistant.service';
+import { Router } from '@angular/router';
+
 
 interface Storie {
   name: string;
@@ -53,6 +55,7 @@ export class StoriesComponent implements OnInit {
   showQuestions: boolean = false;
   showAudio: boolean = false;
   showGenerateAudio: boolean = false;
+  showNewContainer: boolean = false;
   generatedQuestions: any;
   questions: [];
   images: [];
@@ -66,7 +69,8 @@ export class StoriesComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private storieService: StorieService,
-    private voiceAssistantService: VoiceAssistantService
+    private voiceAssistantService: VoiceAssistantService,
+    private router: Router
     ) {
     // Constructor del componente
   }
@@ -84,6 +88,7 @@ export class StoriesComponent implements OnInit {
   }
 
   onClick(){
+    this.showNewContainer= true;
     this.showform = false;
     this.showStory = true;
     
@@ -92,7 +97,7 @@ export class StoriesComponent implements OnInit {
     console.log("FORMULARIO CAMPOS: " + JSON.stringify(formData))
 
     const storyRequest = {
-      plot: formData.storieControl.name,
+      plot: formData.storieControl,
       mainCharacter: formData.mainCharacter,
       place: formData.place,
       genre: formData.genre,
@@ -184,6 +189,13 @@ export class StoriesComponent implements OnInit {
         console.error('Error al obtener el audio', error);
       }
     );
+  }
+
+  prueba(){
+    const formData = this.storyForm.value;
+    console.log("FORMULARIO CAMPOS: " + JSON.stringify(formData));
+    this.router.navigate(['home']);
+
   }
 
 }
