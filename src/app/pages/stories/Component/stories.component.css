@@ -1,0 +1,37 @@
+.story-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para que la imagen de fondo sea visible */
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.story-container pre.custom-font {
+    white-space: pre-line;
+    font-family: 'Verdana', sans-serif;
+    font-size: 14px;
+    text-align: justify;
+    /* O bien, puedes usar pre-wrap en lugar de pre-line si deseas mantener el formato exacto del texto, incluidos los espacios en blanco. */
+}
+
+.story-container h2 {
+    font-weight: bold; /* Hace que los subtítulos estén en negrita */
+    font-size: 1.2em;  /* Aumenta el tamaño de la fuente de los subtítulos */
+  }
+
+.background-image {
+    background-image: url('../../../../assets/img/Backgrounds/img-bg-stories-view.jpg'); /* Ruta de la imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.generate-audio {
+    padding: 20px;
+
+}

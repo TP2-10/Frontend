@@ -13,7 +13,8 @@ export class SidenavComponent {
   fillerNav = [
     {name: 'Inicio', route:"home", icon:"home"},
     {name: 'Perfil', route:"profile", icon:"person"},
-    {name: 'Stories', route:"stories", icon:"menu_book"},
+    {name: 'Generar Historias', route:"generatestories", icon:"edit_note"},
+    {name: 'Historias', route:"stories", icon:"menu_book"},
     {name: 'Salir', route:"login", icon:"logout"}
   ];
 

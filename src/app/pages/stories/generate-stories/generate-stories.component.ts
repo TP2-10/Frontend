@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
-import { StorieService } from './storie.service';
+import { GenerateStoriesService} from './generate-stories.service';
 import { trigger, state, style, transition, animate } from '@angular/animations'; 
-import { VoiceAssistantService } from './voice-assistant.service';
+import { VoiceAssistantService } from '../voice-assistant/voice-assistant.service';
 import { Router } from '@angular/router';
 
 
@@ -13,9 +13,9 @@ interface Storie {
 }
 
 @Component({
-  selector: 'app-stories',
-  templateUrl: './stories.component.html',
-  styleUrls: ['./stories.component.css'],
+  selector: 'app-generate-stories',
+  templateUrl: './generate-stories.component.html',
+  styleUrls: ['./generate-stories.component.css'],
   animations: [
     trigger('fadeAnimation', [
       state('in', style({ opacity: 1 })),
@@ -31,7 +31,7 @@ interface Storie {
     ]),
   ],
 })
-export class StoriesComponent implements OnInit {
+export class GenerateStoriesComponent implements OnInit {
   storieControl = new FormControl<Storie | null>(null, Validators.required);
   selectFormControl = new FormControl('', Validators.required);
   stories: Storie[] = [
@@ -62,13 +62,14 @@ export class StoriesComponent implements OnInit {
   audioData: Blob | null = null;
   //audioUrl: string | null = null;
   audioUrl: string;
+  storyId = 'ID_DE_LA_HISTORIA'; // Reemplaza esto con el ID real
 
  
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private storieService: StorieService,
+    private generateStoriesService: GenerateStoriesService,
     private voiceAssistantService: VoiceAssistantService,
     private router: Router
     ) {
@@ -105,9 +106,9 @@ export class StoriesComponent implements OnInit {
     };
 
     // Enviar la solicitud al backend y obtener la respuesta
-    this.storieService.generateStory(storyRequest).subscribe((response: any) => {
+    this.generateStoriesService.generateStory(storyRequest).subscribe((response: any) => {
       // Accede a la historia generada desde la respuesta
-      const generatedStory = response.story;
+      const generatedStory = response.story.content;
 
       // Asigna la historia generada a la variable
       this.generatedStory = generatedStory;
@@ -138,7 +139,7 @@ export class StoriesComponent implements OnInit {
 
     };
 
-    this.storieService.generateQuestions(questionRequest).subscribe((response: any) => {
+    this.generateStoriesService.generateQuestions(questionRequest).subscribe((response: any) => {
       // Accede a la historia generada desde la respuesta
       const generatedQuestions = response;
 
@@ -194,7 +195,40 @@ export class StoriesComponent implements OnInit {
   prueba(){
     const formData = this.storyForm.value;
     console.log("FORMULARIO CAMPOS: " + JSON.stringify(formData));
-    this.router.navigate(['home']);
+    this.router.navigate(['stories', this.storyId]);
+
+  }
+
+
+  genStorie(){
+    
+    const formData = this.storyForm.value;
+    console.log("FORMULARIO CAMPOS: " + JSON.stringify(formData))
+
+    const storyRequest = {
+      plot: formData.storieControl,
+      mainCharacter: formData.mainCharacter,
+      place: formData.place,
+      genre: formData.genre,
+      audience: formData.audience
+    };
+
+    // Enviar la solicitud al backend y obtener la respuesta
+    this.generateStoriesService.generateStory(storyRequest).subscribe((response: any) => {
+      // Accede a la historia generada desde la respuesta
+      const generatedStory = response.story.content;
+
+      // Asigna la historia generada a la variable
+      this.generatedStory = generatedStory;
+
+      this.storyId = response.story.id; 
+
+      console.log('GENERATED STORIE: ' + this.generatedStory)
+
+      // Redirige al usuario a la vista de la historia generada
+      this.router.navigate(['/stories', this.storyId]);
+
+    });
 
   }
 

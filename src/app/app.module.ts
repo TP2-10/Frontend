@@ -16,7 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './pages/home/home.component';
-import { StoriesComponent } from './pages/stories/stories.component';
+import { GenerateStoriesComponent } from './pages/stories/generate-stories/generate-stories.component';
+import { StoriesComponent } from './pages/stories/Component/stories.component';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { StoriesComponent } from './pages/stories/stories.component';
     UserProfileComponent,
     SidenavComponent,
     HomeComponent,
-    StoriesComponent,
+    GenerateStoriesComponent,
+    StoriesComponent
   ],
   imports: [
     BrowserModule,

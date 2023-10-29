@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class StorieService {
+export class GenerateStoriesService {
 
   //private apiUrl = 'http://localhost:8080/api/v1/questions';
   private apiUrlpython = 'http://localhost:5000'; 
@@ -56,6 +56,13 @@ export class StorieService {
 
     return this.http.post<any>(`${this.apiUrlpython}/stories/questions`, questionRequest)
 
+  }
+
+
+  // Este método obtendrá una historia por su ID
+  getStoryById(storyId: any) {
+    //const url = `http://tu-servidor.com/stories/${storyId}`; // Reemplaza con la URL de tu backend
+    return this.http.get<any>(`${this.apiUrlpython}/stories/${storyId}`);
   }
 
   

@@ -5,7 +5,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { HomeComponent } from './pages/home/home.component';
-import { StoriesComponent } from './pages/stories/stories.component';
+import { GenerateStoriesComponent } from './pages/stories/generate-stories/generate-stories.component';
+import { StoriesComponent } from './pages/stories/Component/stories.component';
+
 
 const routes: Routes = [
   {
@@ -21,6 +23,7 @@ const routes: Routes = [
     path: 'forgotpassword',
     component: ForgotPasswordComponent,
   },
+  
   //{
   //  path: 'dashboard/profile',
   //  component: UserProfileComponent,
@@ -42,7 +45,13 @@ const routes: Routes = [
         path: 'profile', component: UserProfileComponent
       },
       {
+        path: 'generatestories', component: GenerateStoriesComponent
+      },
+      {
         path: 'stories', component: StoriesComponent
+      },
+      {
+        path: 'stories/:id', component: StoriesComponent
       },
       {
         path: 'login',

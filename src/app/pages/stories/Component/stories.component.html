@@ -1,0 +1,25 @@
+<div class="background-image">
+    <div *ngIf="!storyId" class="no-story-message">
+    AQUÍ SE MOSTRARÁN LAS HISTORIAS QUE SE CREAN
+    </div>
+
+    <div class="new-container" >
+        <!-- audio-player.component.html -->
+        <div *ngIf="storyId" class="generate-audio">
+            <button (click)="generateAudio()">Generar Audio</button>
+        </div>
+        <!-- <button (click)="generateAudio()">Generar Audio</button>-->
+        
+        <audio controls *ngIf="showAudio">
+            <source [src]="audioUrl" type="audio/mp3">
+            Tu navegador no soporta la reproducción de audio.
+        </audio>
+
+        <div *ngIf="storyId" class="story-container">
+            <!-- Aquí mostrarás la historia -->
+            <pre class="custom-font">
+                {{ storyContent }}
+            </pre>
+        </div>
+    </div>
+</div>
