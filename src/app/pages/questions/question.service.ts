@@ -25,11 +25,21 @@ export class QuestionService {
         })
       };
 
-      
-    
-
-
     return this.http.post<any>(`${this.apiUrl}/stories/questions`, questionRequest, httpOptions)
     
   }
+
+
+  // Este método obtendrá una historia por su ID
+  getQuestionByStory(storyId: any) {
+    //const url = `http://tu-servidor.com/stories/${storyId}`; // Reemplaza con la URL de tu backend
+    return this.http.get<any>(`${this.apiUrl}/stories/${storyId}/questions`);
+  }
+
+
+  getOptionById(id: number){
+    return this.http.get<any>(`${this.apiUrl}/stories/questions/options/${id}`);
+  }
+
+
 }

@@ -1,0 +1,25 @@
+/* Define un estilo para la calificación */
+.score-container {
+    text-align: center;
+    background-color: #4CAF50; /* Color de fondo */
+    color: white; /* Color del texto */
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 24px;
+    display: flex;
+  }
+  
+  /* Define una animación para mostrar la calificación */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .show-score {
+    animation: fadeIn 1s; /* Aplica la animación de fundido */
+  }
+  

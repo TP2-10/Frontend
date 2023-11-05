@@ -18,6 +18,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { HomeComponent } from './pages/home/home.component';
 import { GenerateStoriesComponent } from './pages/stories/generate-stories/generate-stories.component';
 import { StoriesComponent } from './pages/stories/Component/stories.component';
+import { QuestionsComponent } from './pages/questions/questions.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { StoriesComponent } from './pages/stories/Component/stories.component';
     SidenavComponent,
     HomeComponent,
     GenerateStoriesComponent,
-    StoriesComponent
+    StoriesComponent,
+    QuestionsComponent
   ],
   imports: [
     BrowserModule,

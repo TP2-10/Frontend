@@ -7,6 +7,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { HomeComponent } from './pages/home/home.component';
 import { GenerateStoriesComponent } from './pages/stories/generate-stories/generate-stories.component';
 import { StoriesComponent } from './pages/stories/Component/stories.component';
+import { QuestionsComponent } from './pages/questions/questions.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,9 @@ const routes: Routes = [
       },
       {
         path: 'stories/:id', component: StoriesComponent
+      },
+      {
+        path: 'stories/:id/questions', component: QuestionsComponent
       },
       {
         path: 'login',

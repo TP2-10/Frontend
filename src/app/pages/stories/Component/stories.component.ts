@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GenerateStoriesService } from '../generate-stories/generate-stories.service';
 import { VoiceAssistantService } from '../voice-assistant/voice-assistant.service';
 
@@ -14,6 +14,7 @@ export class StoriesComponent {
 
   // Aquí puedes definir una propiedad para almacenar la historia
   storyContent: string;
+  generatedQuestions: string;
 
   showAudio: boolean = false;
   audioData: Blob | null = null;
@@ -23,7 +24,8 @@ export class StoriesComponent {
   constructor(
     private route: ActivatedRoute, 
     private generateStoriesService: GenerateStoriesService,
-    private voiceAssistantService: VoiceAssistantService
+    private voiceAssistantService: VoiceAssistantService,
+    private router: Router
     ) 
     {}
 
@@ -40,6 +42,32 @@ export class StoriesComponent {
 
       
     });
+  }
+
+  generateQuestions(){
+
+    //this.showQuestions = true
+
+    const questionRequest = {
+      story: this.storyContent
+
+    };
+
+    this.generateStoriesService.generateQuestions(this.storyId, questionRequest).subscribe((response: any) => {
+      // Accede a la historia generada desde la respuesta
+      const generatedQuestions = response;
+
+      // Asigna la historia generada a la variable
+      this.generatedQuestions = generatedQuestions;
+
+      console.log("Response: " + JSON.stringify(this.generatedQuestions));
+
+      // Redirige al usuario a la vista de la historia generada
+      this.router.navigate(['/stories', this.storyId, 'questions']);
+      
+    });
+
+
   }
 
   playAudio(): void {

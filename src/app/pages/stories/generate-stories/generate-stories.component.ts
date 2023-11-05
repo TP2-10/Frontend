@@ -139,7 +139,7 @@ export class GenerateStoriesComponent implements OnInit {
 
     };
 
-    this.generateStoriesService.generateQuestions(questionRequest).subscribe((response: any) => {
+    this.generateStoriesService.generateQuestions(questionRequest, 2).subscribe((response: any) => {
       // Accede a la historia generada desde la respuesta
       const generatedQuestions = response;
 

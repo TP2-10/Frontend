@@ -38,7 +38,7 @@ export class GenerateStoriesService {
   }
 
 
-  generateQuestions(questionRequest: any){
+  generateQuestions(storyId: any, questionRequest: any){
 
     // Obtener el token JWT de Session Storage
     const jwtToken = localStorage.getItem('jwtToken');
@@ -54,7 +54,7 @@ export class GenerateStoriesService {
       };
 
 
-    return this.http.post<any>(`${this.apiUrlpython}/stories/questions`, questionRequest)
+    return this.http.post<any>(`${this.apiUrlpython}/stories/${storyId}/questions`, questionRequest)
 
   }
 

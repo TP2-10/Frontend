@@ -5,22 +5,22 @@
 
         <mat-form-field appearance="fill" class="transition-effect input-form">
           <mat-label>Historia</mat-label>
-          <textarea matInput placeholder="Alex descubre un mundo secreto lleo de criaturas magicas..." formControlName="storieControl"></textarea>
+          <textarea matInput placeholder="Alex descubre un mundo secreto lleno de criaturas magicas..." formControlName="storieControl" class="textarea-input"></textarea>
         </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect input-form">
-        <mat-label>Personaje Principal</mat-label>
-        <textarea matInput placeholder="Sarah - a young woman in her late twenties who left her small hometown several years ago in search of more fulfilling opportunities. She is determined and hardworking but also feels a sense of nostalgia and attachment to her hometown. 
-        Emily - Sarah's childhood best friend who still lives in the town. She is warm and friendly but seems to be harboring a secret.
+        <mat-label>Personajes</mat-label>
+        <textarea matInput placeholder="Alex - un niño de 10 que ama el futbol y sueña con ser futbolista profesional. 
+        Miguel - El mejor amigo de Alex
         
-        Tom - the town's sheriff who is struggling to keep the peace as the town falls deeper into darkness. He is stern but fair and determined to protect the town." 
+        Gloria - La madre de Alex...." 
         
-        formControlName="mainCharacter"></textarea>
+        formControlName="mainCharacter" class="textarea-input"></textarea>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect input-form">
         <mat-label>Lugar</mat-label>
-        <textarea matInput placeholder="La historia toma lugar en una pequeña aldea magica..." formControlName="place"></textarea>
+        <textarea matInput placeholder="La historia toma lugar en una pequeña aldea magica..." formControlName="place" class="textarea-input"></textarea>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect input-form">
@@ -36,7 +36,9 @@
       </mat-form-field>
 
       <div class="form-fields">
-        <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="genStorie()" style="background-color: #f97713; color: #fff;">JUGAR</button>
+        <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="genStorie()" style="background-color: #f97713; color: #fff;">
+          <mat-icon>draw</mat-icon>
+          JUGAR</button>
       </div>
     </form>
   </div>

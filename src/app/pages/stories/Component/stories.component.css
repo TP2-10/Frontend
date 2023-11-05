@@ -35,3 +35,15 @@
     padding: 20px;
 
 }
+
+.form-fields {
+    flex: 1; /* Los campos de formulario ocupan todo el espacio disponible en el contenedor */
+    margin-right: 20px; /* Espacio entre los campos de formulario y la imagen */
+    width: 100%;
+    text-align: center;
+    
+}
+
+.new-container {
+    text-align: center;
+}
