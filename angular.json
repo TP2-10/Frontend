@@ -66,7 +66,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "proxyConfig": "proxy.conf.json",
-            "browserTarget": "ecertificado-portal:build"
+            "browserTarget": "AppTp2:build"
           },
           
           "configurations": {

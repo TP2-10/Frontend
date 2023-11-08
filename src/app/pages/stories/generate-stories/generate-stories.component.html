@@ -5,7 +5,11 @@
 
         <mat-form-field appearance="fill" class="transition-effect input-form">
           <mat-label>Historia</mat-label>
-          <textarea matInput placeholder="Alex descubre un mundo secreto lleno de criaturas magicas..." formControlName="storieControl" class="textarea-input"></textarea>
+          <textarea matInput placeholder="Alex descubre un mundo secreto lleno de criaturas magicas..." 
+          formControlName="storieControl" class="textarea-input"></textarea>
+          <button mat-icon-button (click)="startRecording('storieControl')">
+            <mat-icon>mic</mat-icon>
+          </button>
         </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect input-form">
@@ -16,16 +20,26 @@
         Gloria - La madre de Alex...." 
         
         formControlName="mainCharacter" class="textarea-input"></textarea>
+        <button mat-icon-button (click)="startRecording('mainCharacter')">
+          <mat-icon>mic</mat-icon>
+        </button>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect input-form">
         <mat-label>Lugar</mat-label>
-        <textarea matInput placeholder="La historia toma lugar en una pequeña aldea magica..." formControlName="place" class="textarea-input"></textarea>
+        <textarea matInput placeholder="La historia toma lugar en una pequeña aldea magica..." 
+        formControlName="place" class="textarea-input"></textarea>
+        <button mat-icon-button (click)="startRecording('place')">
+          <mat-icon>mic</mat-icon>
+        </button>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect input-form">
         <mat-label>Género</mat-label>
         <input matInput placeholder="Ejemplo: Fantansia, Aventuras, Misterio, etc." matInput formControlName="genre">
+        <button mat-icon-button (click)="startRecording('genre')">
+          <mat-icon>mic</mat-icon>
+        </button>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="transition-effect">
@@ -38,7 +52,7 @@
       <div class="form-fields">
         <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="genStorie()" style="background-color: #f97713; color: #fff;">
           <mat-icon>draw</mat-icon>
-          JUGAR</button>
+          GENERAR HISTORIA</button>
       </div>
     </form>
   </div>
@@ -48,6 +62,11 @@
   </div>
 
 </div>
+
+<button (click)="startRecording('storieControl')">Iniciar Grabación</button>
+<button (click)="stopRecording()">Detener Grabación</button>
+<button (click)="playRecording()">Reproducir Grabación</button>
+
 
 <div class="new-container" *ngIf="showNewContainer">
   <!-- audio-player.component.html -->

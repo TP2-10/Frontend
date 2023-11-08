@@ -5,6 +5,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { VoiceAssistantService } from '../voice-assistant/voice-assistant.service';
 import { Router } from '@angular/router';
 
+declare var webkitSpeechRecognition: any
 
 interface Storie {
   name: string;
@@ -63,6 +64,18 @@ export class GenerateStoriesComponent implements OnInit {
   //audioUrl: string | null = null;
   audioUrl: string;
   storyId = 'ID_DE_LA_HISTORIA'; // Reemplaza esto con el ID real
+  recording = false;
+  mediaRecorder: MediaRecorder;
+  audioChunks: Blob[] = [];
+
+  audioStream: MediaStream;
+  //audioChunks: Blob[] = [];
+
+  isRecording = false;
+  recognition = new webkitSpeechRecognition();
+  audioBlob: Blob;
+  recognizedText : any;
+  acumulatedTranscription : string = ''
 
  
 
@@ -74,10 +87,14 @@ export class GenerateStoriesComponent implements OnInit {
     private router: Router
     ) {
     // Constructor del componente
+    this.recognition.lang = 'es-ES';
+    this.recognition.continuous = true;
+    
   }
   
 
   ngOnInit() {
+    this.recognition.continuous = true;
     // Inicializa el FormGroup y los FormControl en el método ngOnInit
     this.storyForm = this.formBuilder.group({
       storieControl: ['', Validators.required],
@@ -86,6 +103,15 @@ export class GenerateStoriesComponent implements OnInit {
       genre: ['', Validators.required], // Campo "Género" con validación requerida
       audience: ['', Validators.required] // Campo "Público" con validación requerida
     });
+
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) 
+{
+  console.log("speech recognition API supported");
+} 
+else 
+{
+  console.log("speech recognition API not supported")
+}
   }
 
   onClick(){
@@ -231,5 +257,37 @@ export class GenerateStoriesComponent implements OnInit {
     });
 
   }
+
+  startRecording(fieldName: string) {
+    
+    this.isRecording = true
+    this.recognition.start();
+    this.audioChunks = [];
+    this.recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      this.recognizedText = transcript
+      this.storyForm.get(fieldName)?.setValue(this.recognizedText);
+      console.log('Texto reconocido:', transcript);
+      console.log(`Iniciar grabación para el campo: ${fieldName}`);
+      this.stopRecording()
+    };
+    
+  }
+
+  stopRecording() {
+    this.recognition.stop();
+    
+  }
+
+  playRecording() {
+    if (this.audioBlob) {
+      const audio = new Audio(this.audioUrl);
+      audio.play();
+    }
+  }
+
+  
+
+
 
 }

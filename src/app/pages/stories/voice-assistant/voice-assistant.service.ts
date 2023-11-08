@@ -19,4 +19,19 @@ export class VoiceAssistantService {
     return this.http.post('http://localhost:5000/generate_audio', data, { responseType: 'blob' })
       
   }
+
+  recognizeAudio(audioData: FormData){
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'audio/wav',
+        
+      })
+    };
+    const headers = new HttpHeaders({
+      'Content-Type': 'audio/wav'
+    });
+
+    return this.http.post(`${this.apiURL}/speechtotext`, audioData, { responseType: 'text' });
+  }
 }
