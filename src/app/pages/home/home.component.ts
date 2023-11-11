@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  constructor(){
+  constructor(private router: Router){
 
   }
 
@@ -16,6 +16,11 @@ export class HomeComponent {
     const container = document.querySelector('.container');
     container?.classList.add('loaded');
 
+  }
+
+  goGenarateSotries(){
+    // Redirige al usuario a la vista de la generar historia
+    this.router.navigate(['/generatestories']);
   }
 
 }

@@ -65,5 +65,10 @@ export class GenerateStoriesService {
     return this.http.get<any>(`${this.apiUrlpython}/stories/${storyId}`);
   }
 
+  getImgByStorie(storyId: any) {
+    //const url = `http://tu-servidor.com/stories/${storyId}`; // Reemplaza con la URL de tu backend
+    return this.http.get<any>(`${this.apiUrlpython}/stories/${storyId}/images`);
+  }
+
   
 }

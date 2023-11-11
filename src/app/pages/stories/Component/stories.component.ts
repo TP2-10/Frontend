@@ -20,6 +20,9 @@ export class StoriesComponent {
   audioData: Blob | null = null;
   //audioUrl: string | null = null;
   audioUrl: string;
+  loading: boolean = false;
+  images: string[];
+  images_gen: []
 
   constructor(
     private route: ActivatedRoute, 
@@ -27,7 +30,10 @@ export class StoriesComponent {
     private voiceAssistantService: VoiceAssistantService,
     private router: Router
     ) 
-    {}
+    {this.images= [
+      '../../../../assets/img/Backgrounds/img-EHJR44NNGjPzakFgZvKucBjk.png',
+      '../../../../assets/img/Backgrounds/img-LjEAaC5Br7lj3SJTFbWfbmAI.png'
+    ]}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -38,6 +44,11 @@ export class StoriesComponent {
         this.generateStoriesService.getStoryById(this.storyId).subscribe((response: any) => {
         this.storyContent = response.story;
         });
+
+        this.generateStoriesService.getImgByStorie(this.storyId).subscribe((response: any) => {
+          this.images_gen = response;
+          console.log(this.images_gen)
+        });
       }
 
       
@@ -46,7 +57,7 @@ export class StoriesComponent {
 
   generateQuestions(){
 
-    //this.showQuestions = true
+    this.loading = true;
 
     const questionRequest = {
       story: this.storyContent
@@ -54,6 +65,8 @@ export class StoriesComponent {
     };
 
     this.generateStoriesService.generateQuestions(this.storyId, questionRequest).subscribe((response: any) => {
+
+      this.loading = false;
       // Accede a la historia generada desde la respuesta
       const generatedQuestions = response;
 

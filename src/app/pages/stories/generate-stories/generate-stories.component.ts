@@ -76,8 +76,7 @@ export class GenerateStoriesComponent implements OnInit {
   audioBlob: Blob;
   recognizedText : any;
   acumulatedTranscription : string = ''
-
- 
+  loading: boolean = false;
 
 
   constructor(
@@ -228,6 +227,7 @@ else
 
   genStorie(){
     
+    this.loading = true;
     const formData = this.storyForm.value;
     console.log("FORMULARIO CAMPOS: " + JSON.stringify(formData))
 
@@ -241,6 +241,8 @@ else
 
     // Enviar la solicitud al backend y obtener la respuesta
     this.generateStoriesService.generateStory(storyRequest).subscribe((response: any) => {
+      
+      this.loading = false;
       // Accede a la historia generada desde la respuesta
       const generatedStory = response.story.content;
 

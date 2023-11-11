@@ -22,7 +22,7 @@
   }
 
 .background-image {
-    background-image: url('../../../../assets/img/Backgrounds/img-bg-stories-view.jpg'); /* Ruta de la imagen de fondo */
+    background-image: url('../../../../assets/img/Backgrounds/bg-show-storie.jpg'); /* Ruta de la imagen de fondo */
     background-size: cover;
     background-position: center;
     min-height: 100vh;
@@ -47,3 +47,41 @@
 .new-container {
     text-align: center;
 }
+
+.image-container {
+    display: flex;
+    flex-direction: column; /* Alinea las imágenes verticalmente */
+}
+
+.image-item {
+    margin-bottom: 10px; /* Espacio entre las imágenes */
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .loading-spinner {
+    border: 6px solid #f3f3f3;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

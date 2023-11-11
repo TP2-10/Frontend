@@ -134,7 +134,7 @@ export class QuestionsComponent {
   transformQuestions() {
     this.generatedQuestions = this.generatedQuestions.map((question: { options: any[]; id: any; question_text: any; }) => {
       const options = question.options
-        .filter(option => !option.includes("Correct answer:"))
+        .filter(option => option.toLowerCase().includes("correct answer:") ? false : option.length >= 2) 
         .map((optionText: string, index:number) => {
           return {
             id: index + 1, // ID de la opción, puedes ajustarlo según tus necesidades
@@ -150,6 +150,10 @@ export class QuestionsComponent {
         correctAnswer: "",
       };
     });
+  }
+
+  public get scoreColor(): string {
+    return this.totalScore < 10 ? 'red' : 'green';
   }
   
   

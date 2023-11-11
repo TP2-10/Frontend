@@ -1,3 +1,8 @@
+<div class="loading-overlay" *ngIf="loading">
+    <div class="loading-spinner"></div>
+    <p>Cargando Preguntas...</p>
+  </div>
+
 <div class="background-image">
     <div *ngIf="!storyId" class="no-story-message">
     AQUÍ SE MOSTRARÁN LAS HISTORIAS QUE SE CREAN
@@ -26,4 +31,10 @@
             <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="generateQuestions()" >PREGUNTAS</button>
           </div>
     </div>
+    <!-- Mostrar las imágenes generadas -->
+  <div class="image-container">
+    <ng-container *ngFor="let imageUrl of images_gen">
+      <img [src]="imageUrl" alt="Generated Image" />
+    </ng-container>
+  </div>
 </div>

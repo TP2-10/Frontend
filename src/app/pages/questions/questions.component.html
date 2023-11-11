@@ -1,10 +1,8 @@
-<p>questions works!</p>
-
 <!-- Mostrar las preguntas -->
 <div class="story-container-2">
   <!-- Aquí mostrarás las preguntas -->
   <div *ngFor="let question of generatedQuestions">
-    <h3>{{ question.id }} {{ question.question_text }}</h3>
+    <h3>*{{ question.question_text }}</h3>
     <ul>
       <li *ngFor="let option of question.options">
         <label>
@@ -20,7 +18,7 @@
 </div>
 
 <!-- Muestra la calificación -->
-<div *ngIf="showScore" class="show-score score-container" >
+<div *ngIf="showScore" [ngStyle]="{'background-color': scoreColor}" class="show-score score-container" >
   <p>Tu calificación es: {{ totalScore }} puntos</p>
 </div>
 

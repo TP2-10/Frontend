@@ -1,4 +1,12 @@
+<div class="loading-overlay" *ngIf="loading">
+  <div class="loading-spinner"></div>
+  <p>Generando historia...</p>
+</div>
+
 <div class="background-image">
+  <div class="title-container">
+    <h2>GENERA TU HISTORIA</h2>
+  </div>
   <div class="form-container" [@fadeAnimation]="showform ? 'in' : 'out'">
     <div class="form-fields">
       <form [formGroup]="storyForm">
@@ -49,23 +57,17 @@
         </mat-select>
       </mat-form-field>
 
-      <div class="form-fields">
-        <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="genStorie()" style="background-color: #f97713; color: #fff;">
-          <mat-icon>draw</mat-icon>
-          GENERAR HISTORIA</button>
-      </div>
+      
     </form>
-  </div>
-
-  <div class="form-fields">
-    <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="prueba()" style="background-color: #f97713; color: #fff;">PRUEBA</button>
   </div>
 
 </div>
 
-<button (click)="startRecording('storieControl')">Iniciar Grabación</button>
-<button (click)="stopRecording()">Detener Grabación</button>
-<button (click)="playRecording()">Reproducir Grabación</button>
+<div class="form-fields">
+  <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="genStorie()" style="background-color: #f97713; color: #fff;">
+    <mat-icon>draw</mat-icon>
+    GENERAR HISTORIA</button>
+</div>
 
 
 <div class="new-container" *ngIf="showNewContainer">

@@ -177,7 +177,7 @@
 }
 
 .background-image {
-  background-image: url('https://phonoteka.org/uploads/posts/2021-04/1618326985_7-phonoteka_org-p-foni-detskie-dlya-detskogo-sada-7.jpg'); /* Ruta de la imagen de fondo */
+  background-image: url('../../../../assets/img/Backgrounds/bg-generate-stories.jpg'); /* Ruta de la imagen de fondo */
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -195,4 +195,50 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin: 20px;
 }
-  
+
+.title-container {
+  position: absolute;
+  top: 10px; /* Ajusta la distancia desde la parte superior según tus necesidades */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fff; /* Puedes ajustar el color de fondo según tu diseño */
+}
+
+.title-container h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333; /* Puedes ajustar el color del texto según tu diseño */
+}
+
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

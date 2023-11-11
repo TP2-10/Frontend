@@ -1,0 +1,42 @@
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .registration-card {
+    width: 350px;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .registration-title {
+    font-size: 24px;
+    color: #f97713; /* Cambia el color según tus preferencias */
+    margin-bottom: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .registration-button {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .login-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333; /* Cambia el color según tus preferencias */
+  }
+  
+  .login-link a {
+    color: #f97713; /* Cambia el color según tus preferencias */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+  }
