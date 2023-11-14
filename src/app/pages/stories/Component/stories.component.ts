@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenerateStoriesService } from '../generate-stories/generate-stories.service';
 import { VoiceAssistantService } from '../voice-assistant/voice-assistant.service';
@@ -23,6 +23,8 @@ export class StoriesComponent {
   loading: boolean = false;
   images: string[];
   images_gen: []
+  image: string;
+  @ViewChild('imageElement') imageElement: ElementRef;
 
   constructor(
     private route: ActivatedRoute, 
@@ -33,7 +35,17 @@ export class StoriesComponent {
     {this.images= [
       '../../../../assets/img/Backgrounds/img-EHJR44NNGjPzakFgZvKucBjk.png',
       '../../../../assets/img/Backgrounds/img-LjEAaC5Br7lj3SJTFbWfbmAI.png'
-    ]}
+    ]
+    this.image='https://img.freepik.com/free-vector/hand-drawn-world-children-s-day-background_52683-75105.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699488000&semt=ais'
+  }
+
+  
+
+  onImageLoad() {
+    // Cuando la imagen se carga, se añade la clase 'show' para activar la transición de zoom.
+    this.imageElement.nativeElement.classList.add('show');
+  }
+    
 
   ngOnInit() {
     this.route.params.subscribe((params) => {

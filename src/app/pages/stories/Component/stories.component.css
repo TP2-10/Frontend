@@ -6,7 +6,9 @@
     max-width: 500px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin: 20px;
+
 }
+
 
 .story-container pre.custom-font {
     white-space: pre-line;
@@ -48,14 +50,31 @@
     text-align: center;
 }
 
-.image-container {
+.image-container-2 {
     display: flex;
     flex-direction: column; /* Alinea las imágenes verticalmente */
 }
 
-.image-item {
+.image-item-2 {
     margin-bottom: 10px; /* Espacio entre las imágenes */
 }
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .zoom {
+    width: 100%;
+    height: auto;
+    transform: scale(1);
+    transition: transform 5s ease-in-out;
+  }
+  
+  .image-container.show .zoom {
+    transform: scale(1.2); /* Ajusta el valor según el nivel de zoom deseado */
+  }
+  
 
 .loading-overlay {
     position: fixed;
@@ -83,5 +102,61 @@
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+  
+
+  .typewriter pre {
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange; /* The typwriter cursor */
+    white-space:inherit; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: orange; }
+  }
+
+
+  .typing-effect {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    white-space:nowrap;
+    overflow: hidden;
+    border-right: 2px solid #4CAF50; /* Color del cursor de tipeo */
+    margin: auto;
+  
+    /* Animación de tipeo */
+    animation: typing 3s steps(40) , blink-caret 0.7s step-end infinite;
+  }
+  
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+  
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: #4CAF50;
+    }
   }
   

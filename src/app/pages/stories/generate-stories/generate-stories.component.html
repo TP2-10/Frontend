@@ -1,72 +1,161 @@
-<div class="loading-overlay" *ngIf="loading">
-  <div class="loading-spinner"></div>
-  <p>Generando historia...</p>
-</div>
 
 <div class="background-image">
-  <div class="title-container">
+  <div class="loading-overlay" *ngIf="loading">
+    <div class="loading-spinner"></div>
+    <p>Generando historia...</p>
+  </div>
+  <div class="title-container transition-effect" [@fadeAnimation]="showTitle ? 'in' : 'out'">
     <h2>GENERA TU HISTORIA</h2>
   </div>
-  <div class="form-container" [@fadeAnimation]="showform ? 'in' : 'out'">
+  <div class="form-container transition-effect" [@fadeAnimation]="showform ? 'in' : 'out'">
     <div class="form-fields">
       <form [formGroup]="storyForm">
 
+         <!-- Historia -->
+        <h3 class="form-subtitle">Historia</h3>
         <mat-form-field appearance="fill" class="transition-effect input-form">
           <mat-label>Historia</mat-label>
           <textarea matInput placeholder="Alex descubre un mundo secreto lleno de criaturas magicas..." 
           formControlName="storieControl" class="textarea-input"></textarea>
-          <button mat-icon-button (click)="startRecording('storieControl')">
+          <button mat-icon-button (click)="startRecording('storieControl', 0)">
             <mat-icon>mic</mat-icon>
           </button>
         </mat-form-field>
 
-      <mat-form-field appearance="fill" class="transition-effect input-form">
-        <mat-label>Personajes</mat-label>
-        <textarea matInput placeholder="Alex - un niño de 10 que ama el futbol y sueña con ser futbolista profesional. 
-        Miguel - El mejor amigo de Alex
-        
-        Gloria - La madre de Alex...." 
-        
-        formControlName="mainCharacter" class="textarea-input"></textarea>
-        <button mat-icon-button (click)="startRecording('mainCharacter')">
-          <mat-icon>mic</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="transition-effect input-form">
-        <mat-label>Lugar</mat-label>
-        <textarea matInput placeholder="La historia toma lugar en una pequeña aldea magica..." 
-        formControlName="place" class="textarea-input"></textarea>
-        <button mat-icon-button (click)="startRecording('place')">
-          <mat-icon>mic</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="transition-effect input-form">
-        <mat-label>Género</mat-label>
-        <input matInput placeholder="Ejemplo: Fantansia, Aventuras, Misterio, etc." matInput formControlName="genre">
-        <button mat-icon-button (click)="startRecording('genre')">
-          <mat-icon>mic</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="transition-effect">
-        <mat-label>Público</mat-label>
-        <mat-select formControlName="audience">
-          <mat-option *ngFor="let option of audienceOptions" [value]="option">{{ option }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
       
-    </form>
+        <!-- Personajes -->
+        <h3 class="form-subtitle">Personajes</h3>
+        <mat-form-field appearance="fill" class="transition-effect input-form">
+          <mat-label>Personajes</mat-label>
+          <textarea matInput placeholder="Alex - un niño de 10 que ama el futbol y sueña con ser futbolista profesional. 
+                Miguel - El mejor amigo de Alex
+                
+                Gloria - La madre de Alex...." formControlName="mainCharacter" class="textarea-input"></textarea>
+          <button mat-icon-button (click)="startRecording('mainCharacter', 0)">
+            <mat-icon>mic</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <!-- Lugar -->
+        <h3 class="form-subtitle">Lugar</h3>
+        <mat-form-field appearance="fill" class="transition-effect input-form">
+          <mat-label>Lugar</mat-label>
+          <textarea matInput placeholder="La historia toma lugar en una pequeña aldea magica..." 
+          formControlName="place" class="textarea-input"></textarea>
+          <button mat-icon-button (click)="startRecording('place', 0)">
+            <mat-icon>mic</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <!-- Género -->
+        <h3 class="form-subtitle">Género</h3>
+        <mat-form-field appearance="fill" class="transition-effect input-form">
+          <mat-label>Género</mat-label>
+          <input matInput placeholder="Ejemplo: Fantansia, Aventuras, Misterio, etc." matInput formControlName="genre">
+          <button mat-icon-button (click)="startRecording('genre', 0)">
+            <mat-icon>mic</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <!-- Público -->
+        <h3 class="form-subtitle">Público</h3>
+        <mat-form-field appearance="fill" class="transition-effect">
+          <mat-label>Público</mat-label>
+          <mat-select formControlName="audience">
+            <mat-option *ngFor="let option of audienceOptions" [value]="option">{{ option }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+
+
+  <div >
+    <div class="form-fields">
+      <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect"
+        (click)="genStorie()" style="background-color: #f97713; color: #fff;"  [@fadeAnimation]="showButtoms ? 'in' : 'out'">
+        <mat-icon>draw</mat-icon>
+        GENERAR HISTORIA</button>
+    </div>
+
+    <div class="form-fields">
+      <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect"
+        (click)="genStoryOpening()" style="background-color: #09e880; color: #fff;"  [@fadeAnimation]="showButtoms ? 'in' : 'out'">
+        <mat-icon>draw</mat-icon>
+        GENERAR HISTORIA MULTIAVENTURA</button>
+    </div>
+  </div>
+
+
+
+<div *ngIf="textocreado" class="multistory-container transition-effect" [@storyAnimation]="showChapter ? 'in' : 'out'">
+  <div class="chapter-container">
+    <!-- Aquí mostrarás la historia -->
+    <pre *ngIf="!chapter" class="custom-font">
+        {{ generatedStoryOpening }}
+    </pre>
+    <pre *ngIf="chapter" class="custom-font">
+      {{ generatedNewChapter }}
+    </pre>
+  </div>
+  
+  <!-- Formulario para la entrada del usuario -->
+  <button mat-raised-button color="primary" class="button-spacing button-animation" style="background-color: #fce80b; color: #fff;" 
+    (click)="continueStory()">Continuar historia</button>
+</div>
+
+<!-- Formulario para un nuevo capitulo -->
+<div *ngIf="!showChapter" class="transition-effect" [@storyAnimation]="showContinueOptions ? 'in' : 'out'">
+  <!-- Muestra algo diferente después de hacer clic en "Continuar" -->
+  <h2>¡Continuación de la historia!</h2>
+  
+  <div class="centered-form new-chapter-form">
+    <mat-form-field appearance="fill" class="decision-form">
+      <input matInput placeholder="Escribe tu continuación" [formControl]="chapterControl" class="decision-input">
+      <button mat-icon-button (click)="startRecording('chapterControl', 1)">
+        <mat-icon>mic</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" style="background-color: #5397f0; color: #fff;"  
+      (click)="genNextChpater()">Mostrar siguiente parte</button>
+  </div>
+</div>
+
+<!-- Formulario para el final de la historia -->
+<div *ngIf="showFinalOption" class="transition-effect">
+  <!-- Muestra algo diferente después de hacer clic en "Continuar" -->
+  <h2>¡Dale un fin a la Historia!</h2>
+
+  <div class="centered-form new-chapter-form">
+    <mat-form-field appearance="fill" class="decision-form">
+      <input matInput placeholder="Escribe como deseas que termine la historia" [formControl]="finalControl" class="decision-input">
+      <button mat-icon-button (click)="startRecording('finalControl', 2)">
+        <mat-icon>mic</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect"
+      style="background-color: #146fe5; color: #fff;" (click)="genFinalChapter()">Mostrar final de la historia</button>
+  </div>
+</div>
+
+
+
+<div *ngIf="generatedFinalChapter" class="multistory-container transition-effect" [@storyAnimation]="showFinalChapter ? 'in' : 'out'">
+  <div class="chapter-container">
+    <!-- Aquí mostrarás el final la historia -->
+    <pre class="custom-font">
+        {{ generatedFinalChapter }}
+    </pre>
   </div>
 
 </div>
 
-<div class="form-fields">
-  <button mat-raised-button color="primary" class="button-spacing button-animation transition-effect" (click)="genStorie()" style="background-color: #f97713; color: #fff;">
-    <mat-icon>draw</mat-icon>
-    GENERAR HISTORIA</button>
+<!-- Mostrar las imágenes generadas -->
+<div class="image-container" [class.show]="images" [@storyAnimation]="showImage ? 'in' : 'out'">
+  <ng-container *ngIf="image">
+    <img [src]="image" alt="Generated Image" class="dissolve" />
+  </ng-container>
+</div>
 </div>
 
 
@@ -91,7 +180,7 @@
 
 
   <!-- Mostrar las imágenes generadas -->
-  <div class="image-container"[@storyAnimation]="showStory ? 'in' : 'out'">
+  <div class="image-container-2"[@storyAnimation]="showStory ? 'in' : 'out'">
     <ng-container *ngFor="let imageUrl of images">
       <img [src]="imageUrl" alt="Generated Image" />
     </ng-container>

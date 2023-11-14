@@ -57,9 +57,10 @@ export class GenerateStoriesComponent implements OnInit {
   showAudio: boolean = false;
   showGenerateAudio: boolean = false;
   showNewContainer: boolean = false;
+  showButtoms: boolean = true;
   generatedQuestions: any;
   questions: [];
-  images: [];
+  images: string;
   audioData: Blob | null = null;
   //audioUrl: string | null = null;
   audioUrl: string;
@@ -77,6 +78,32 @@ export class GenerateStoriesComponent implements OnInit {
   recognizedText : any;
   acumulatedTranscription : string = ''
   loading: boolean = false;
+
+  generatedStoryOpening: string;
+  generatedNewChapter: string;
+  newChapterRequest: any
+  generatedFinalChapter: string;
+  finalChapterRequest: any;
+
+  image: string | null ;
+  imageOpening: string;
+  imageChapter: string;
+  imageFinal: string;
+
+  showChapter: boolean = false;
+  showFinalChapter: boolean = false;
+  showContinueOptions: boolean = false;
+  showFinalOption: boolean = false;
+  contChapters: number = 0;
+  chapter: boolean = false;
+  showTitle: boolean = true;
+  showImage: boolean = false;
+  textocreado: boolean = false;
+
+  chapterControl = new FormControl('');
+  finalControl = new FormControl('');
+
+
 
 
   constructor(
@@ -103,6 +130,11 @@ export class GenerateStoriesComponent implements OnInit {
       audience: ['', Validators.required] // Campo "Público" con validación requerida
     });
 
+    this.images='https://img.freepik.com/free-vector/hand-drawn-world-children-s-day-background_52683-75105.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1699488000&semt=ais'
+
+    this.chapterControl = new FormControl('', Validators.required);
+    this.finalControl = new FormControl('');
+
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) 
 {
   console.log("speech recognition API supported");
@@ -113,12 +145,147 @@ else
 }
   }
 
+  genStoryOpening(){
+    this.chapter = false;
+    this.showTitle = false;
+    this.showform = false;
+    this.showButtoms = false;
+    this.loading = true;
+
+    const formData = this.storyForm.value;
+    const storyOpeningRequest = {
+      plot: formData.storieControl,
+      mainCharacter: formData.mainCharacter,
+      place: formData.place,
+      genre: formData.genre,
+      audience: formData.audience
+    };
+
+    // Enviar la solicitud al backend y obtener la respuesta
+    this.generateStoriesService.generateStoryOpening(storyOpeningRequest).subscribe((response: any) => {
+      this.loading = false;
+      // Accede a la historia generada desde la respuesta
+      const generatedStoryOpening = response.story_opening;
+
+      // Asigna la historia generada a la variable
+      this.generatedStoryOpening = generatedStoryOpening;
+
+      //Imagen
+      const image = response.image_chapter;
+
+      this.image = image;
+
+      console.log('OPENING STORIE: ' + this.generatedStoryOpening)
+
+      //this.showGenerateAudio = true
+      this.textocreado = true;
+      this.showChapter = true;
+      this.showImage = true;
+    });
+
+  }
+
+  genNextChpater(){
+    
+    this.showContinueOptions = false;
+    this.loading = true;
+    this.image = null;
+
+    if(this.contChapters === 1){
+      this.newChapterRequest= {
+        story: this.generatedStoryOpening,
+        new_plot: this.chapterControl.value
+      };
+    }else{
+      this.newChapterRequest= {
+        story: this.generatedNewChapter,
+        new_plot: this.chapterControl.value
+      };
+    }
+
+    // Enviar la solicitud al backend y obtener la respuesta
+    this.generateStoriesService.generateNewChapter(this.newChapterRequest).subscribe((response: any) => {
+      this.loading = false;
+      // Accede a la historia generada desde la respuesta
+      const generatedNewChapter = response.new_chapter;
+
+      // Asigna la historia generada a la variable
+      this.generatedNewChapter = generatedNewChapter;
+
+      //Imagen
+      const image = response.image_chapter;
+
+      this.image = image;
+
+      console.log('GENERATED CHAPTER: ' + this.generatedNewChapter)
+
+      this.chapter = true;
+      this.textocreado = true;
+      this.showChapter = true;
+      this.showImage = true;
+
+      //this.showGenerateAudio = true
+    });
+
+  }
+
+  genFinalChapter(){
+    this.showContinueOptions = false;
+    this.showFinalOption = false;
+    this.image = null;
+    this.loading = true;
+
+    this.finalChapterRequest= {
+      story: this.generatedNewChapter,
+      final_plot: this.finalControl.value
+    };
+
+    // Enviar la solicitud al backend y obtener la respuesta
+    this.generateStoriesService.generateFinalChapter(this.finalChapterRequest).subscribe((response: any) => {
+      this.loading = false;
+      // Accede a la historia generada desde la respuesta
+      const generatedFinalChapter = response.final_chapter;
+
+      // Asigna la historia generada a la variable
+      this.generatedFinalChapter = generatedFinalChapter;
+
+      //Imagen
+      const image = response.image_chapter;
+
+      this.image = image;
+
+      console.log('FINAL CHAPTER: ' + this.generatedFinalChapter)
+
+      this.textocreado = true;
+      this.showFinalChapter = true;
+      this.showImage = true;
+    });
+
+
+  }
+
+  continueStory(){
+    this.contChapters += 1;
+    this.showChapter = false;
+    this.showform = false;
+    this.showImage = false;
+    this.textocreado = false;
+    if(this.contChapters === 3){
+      this.showContinueOptions = false;
+      this.showFinalOption = true;
+
+    }else{
+      this.showContinueOptions = true;
+    }
+    
+    
+  }
+
   onClick(){
     this.showNewContainer= true;
     this.showform = false;
     this.showStory = true;
     
-    //window.open('https://www.google.com/', '_blank');
     const formData = this.storyForm.value;
     console.log("FORMULARIO CAMPOS: " + JSON.stringify(formData))
 
@@ -260,19 +427,49 @@ else
 
   }
 
-  startRecording(fieldName: string) {
+  startRecording(fieldName: string, multiadventure: number) {
     
-    this.isRecording = true
-    this.recognition.start();
-    this.audioChunks = [];
-    this.recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript;
-      this.recognizedText = transcript
-      this.storyForm.get(fieldName)?.setValue(this.recognizedText);
-      console.log('Texto reconocido:', transcript);
-      console.log(`Iniciar grabación para el campo: ${fieldName}`);
-      this.stopRecording()
-    };
+    if(multiadventure === 0){
+
+      this.isRecording = true
+      this.recognition.start();
+      this.audioChunks = [];
+      this.recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        this.recognizedText = transcript
+        this.storyForm.get(fieldName)?.setValue(this.recognizedText);
+        console.log('Texto reconocido:', transcript);
+        console.log(`Iniciar grabación para el campo: ${fieldName}`);
+        this.stopRecording()
+      };
+
+    } else if (multiadventure === 1){
+
+      this.isRecording = true
+      this.recognition.start();
+      this.audioChunks = [];
+      this.recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        this.recognizedText = transcript
+        this.chapterControl.setValue(this.recognizedText);
+        console.log('Texto reconocido:', transcript);
+        console.log(`Iniciar grabación para el campo: ${fieldName}`);
+        this.stopRecording()
+      };
+      
+    } else if (multiadventure === 2) {
+      this.isRecording = true
+      this.recognition.start();
+      this.audioChunks = [];
+      this.recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        this.recognizedText = transcript
+        this.finalControl.setValue(this.recognizedText);
+        console.log('Texto reconocido:', transcript);
+        console.log(`Iniciar grabación para el campo: ${fieldName}`);
+        this.stopRecording()
+      };
+    }
     
   }
 
@@ -287,9 +484,6 @@ else
       audio.play();
     }
   }
-
-  
-
 
 
 }

@@ -77,7 +77,7 @@
     flex: 1; /* Los campos de formulario ocupan todo el espacio disponible en el contenedor */
     margin-right: 20px; /* Espacio entre los campos de formulario y la imagen */
     width: 100%;
-    max-width: 400px; /* Ajusta el ancho máximo del contenedor de formularios según tus necesidades */
+    max-width: 500px; /* Ajusta el ancho máximo del contenedor de formularios según tus necesidades */
     text-align: center;
   }
 
@@ -92,13 +92,18 @@
     max-height: 300px; /* Ajusta la altura máxima según tus preferencias */
     overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
   }
-  
-  .image-container {
-    flex: 1; /* La imagen ocupa todo el espacio disponible en el contenedor */
-    display: flex;
-    justify-content: flex-end; /* Alinea la imagen a la derecha del contenedor */
-    align-items: center; /* Alinea verticalmente la imagen en el centro del contenedor */
+
+  .decision-form {
+    min-width: 250px;
+    width: 500px;
   }
+
+  .decision-input { /* Ajusta la altura mínima según tus preferencias */
+    max-height: 300px; /* Ajusta la altura máxima según tus preferencias */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando sea necesario */
+  }
+  
+  
 
   .mat-form-field {
     margin-bottom: 30px; /* Ajusta la separación vertical entre los campos de formulario */
@@ -165,19 +170,40 @@
 
 
 /* Alinea las imágenes horizontalmente */
-.image-container {
+.image-container-2 {
   display: flex;
   justify-content: center;
 }
 
 /* Estilo para las imágenes generadas */
-.image-container img {
+.image-container-2 img {
   max-width: 100%;
   margin: 10px; /* Espacio entre las imágenes */
 }
 
+.image-container {
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px;
+}
+
+.dissolve {
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.image-container.show .dissolve {
+  opacity: 1;
+}
+
+
 .background-image {
-  background-image: url('../../../../assets/img/Backgrounds/bg-generate-stories.jpg'); /* Ruta de la imagen de fondo */
+  background-image: url('../../../../assets/img/Backgrounds/bg-show-storie.jpg'); /* Ruta de la imagen de fondo */
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -204,24 +230,74 @@
   text-align: center;
   border: 2px solid #ccc;
   border-radius: 8px;
-  padding: 10px;
+  padding: 5px;
+  height: 45px;
   background-color: #fff; /* Puedes ajustar el color de fondo según tu diseño */
 }
 
 .title-container h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: 20px;
   color: #333; /* Puedes ajustar el color del texto según tu diseño */
+}
+
+/* Agrega estos estilos a tu hoja de estilo CSS */
+
+.form-subtitle {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.2em; /* Puedes ajustar el tamaño según tus preferencias */
+  margin-bottom: 8px; /* Ajusta el margen inferior según tus necesidades */
+  font-family: 'Verdana', sans-serif;
+}
+
+
+.chapter-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para que la imagen de fondo sea visible */
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+.chapter-container pre.custom-font {
+  white-space: pre-line;
+  font-family: 'Verdana', sans-serif;
+  font-size: 14px;
+  text-align: justify;
+  /* O bien, puedes usar pre-wrap en lugar de pre-line si deseas mantener el formato exacto del texto, incluidos los espacios en blanco. */
+}
+
+.chapter-container h2 {
+  font-weight: bold; /* Hace que los subtítulos estén en negrita */
+  font-size: 1.2em;  /* Aumenta el tamaño de la fuente de los subtítulos */
+}
+
+.multistory-container {
+  text-align: center;
+}
+
+.centered-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.new-chapter-form {
+  z-index: 9999;
 }
 
 
 .loading-overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.9);
   display: flex;
   flex-direction: column;
   align-items: center;
