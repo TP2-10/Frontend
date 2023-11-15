@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginIn } from './models/loginInterface';
+import { LoginRequest } from './models/loginInterface';
 import { LoginResponse } from './models/LoginResponse';
 import { FormGroup } from '@angular/forms';
 import { Observable, map } from 'rxjs';
@@ -12,20 +12,22 @@ import { catchError } from 'rxjs/operators';
 })
 export class LoginService {
 
-  //private URL = '/api/v1/auth';
+  private apiUrl = 'http://localhost:5000';
 
   constructor(private http: HttpClient) { }
 
-  sigIn(userdata: LoginIn):Observable<LoginResponse>{
-    return this.http.post<LoginResponse>('http://localhost:8080/api/v1/auth/authenticate',userdata)
+  login(userdata: LoginRequest):Observable<LoginResponse>{
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`,userdata)
     .pipe(
-      map(( res: LoginResponse) => {
-        console.log('Res = ' , res);
-        this.saveLocalStorage(res);
-        localStorage.setItem('jwtToken', res.token);
-        localStorage.setItem('openaiApiKey', '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');
+      map(( data: LoginResponse) => {
+
+        console.log('Res = ' , data);
+        ({ access_tokend: data.access_token, message: data.message})
+        //this.saveLocalStorage(res);
+        //localStorage.setItem('jwtToken', res.token);
+        //localStorage.setItem('openaiApiKey', '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');
         //this.res.next(res);
-        return res;
+        return data;
 
       }),
       catchError((err) => this.handlerError(err))
@@ -35,7 +37,7 @@ export class LoginService {
 
   private saveLocalStorage(ResLogin: LoginResponse): void {
     //const { status, response } = ResLogin;
-    localStorage.setItem('user', ResLogin.token);
+    localStorage.setItem('user', ResLogin.access_token);
   }
 
   private handlerError(err: any): Observable<never> {
@@ -43,7 +45,8 @@ export class LoginService {
     if (err) {
       errorMessage = `Error: code ${err.message}`;
     }
-    window.alert(errorMessage);
+    //window.alert(errorMessage);
+    console.log(errorMessage)
     return throwError(() => err);
   }
 }

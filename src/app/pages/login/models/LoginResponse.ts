@@ -1,5 +1,5 @@
 export interface LoginResponse {
-    status: string;
-    response: any;
-    token: any;
+    access_token: string,
+    message: string
+
 }

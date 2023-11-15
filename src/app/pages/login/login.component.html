@@ -1,33 +1,33 @@
 <div class="wrapper fadeInDown">
-    <div id="formContent">
-      <!-- Tabs Titles -->
-  
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <img src="assets/img/icons/multiaventura.png" id="icon" alt="User Icon" />
-      </div>
-  
-      <!-- Login Form -->
-      <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-        <input type="text" id="login" class="fadeIn second" formControlName="email" placeholder="email">
-        <input type="password" id="password" class="fadeIn third" formControlName="password" placeholder="password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
-      </form>
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
-      <!-- Alert error -->
-      <div class="alert alert-danger" *ngIf="errorStatus" >
-        <p> ERROR</p>
-      </div>
-  
-      <!-- Remind Passowrd -->
-      <div id="formFooter" >
-        <a class="underlineHover" href="http://localhost:4200/forgotpassword" onClick="gotoFP()" >Forgot Password?</a>
-
-        <!-- New Registration -->
-      <p class="register-link">
-        No tienes una cuenta? <a class="underlineHover" routerLink="/register">Regístrate ahora</a>
-      </p>
-      </div>
-  
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="assets/img/icons/multiaventura.png" id="icon" alt="User Icon" />
     </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <input type="text" id="login" class="fadeIn second" formControlName="username" placeholder="username">
+      <input type="password" id="password" class="fadeIn third" formControlName="password" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+
+    <!-- Alert error -->
+    <div class="alert alert-danger" *ngIf="islogin" >
+      <p> ERROR: CREDENCIALES INCORRECTAS</p>
+    </div>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter" >
+      <a class="underlineHover" href="http://localhost:4200/forgotpassword" onClick="gotoFP()" >Forgot Password?</a>
+
+      <!-- New Registration -->
+    <p class="register-link">
+      No tienes una cuenta? <a class="underlineHover" routerLink="/register">Regístrate ahora</a>
+    </p>
+    </div>
+
   </div>
+</div>
