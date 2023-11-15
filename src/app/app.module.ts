@@ -20,6 +20,8 @@ import { GenerateStoriesComponent } from './pages/stories/generate-stories/gener
 import { StoriesComponent } from './pages/stories/Component/stories.component';
 import { QuestionsComponent } from './pages/questions/questions.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { QuestionChapterComponent } from './pages/questions/question-chapter/question-chapter.component';
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -36,9 +38,11 @@ import { RegisterComponent } from './pages/register/register.component';
     GenerateStoriesComponent,
     StoriesComponent,
     QuestionsComponent,
-    RegisterComponent
+    RegisterComponent,
+    QuestionChapterComponent
   ],
   imports: [
+    MatDialogModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -47,7 +51,8 @@ import { RegisterComponent } from './pages/register/register.component';
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [{ provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

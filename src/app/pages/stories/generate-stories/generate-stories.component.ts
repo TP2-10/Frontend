@@ -3,7 +3,9 @@ import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
 import { GenerateStoriesService} from './generate-stories.service';
 import { trigger, state, style, transition, animate } from '@angular/animations'; 
 import { VoiceAssistantService } from '../voice-assistant/voice-assistant.service';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { QuestionChapterComponent } from '../../questions/question-chapter/question-chapter.component';
 
 declare var webkitSpeechRecognition: any
 
@@ -86,9 +88,6 @@ export class GenerateStoriesComponent implements OnInit {
   finalChapterRequest: any;
 
   image: string | null ;
-  imageOpening: string;
-  imageChapter: string;
-  imageFinal: string;
 
   showChapter: boolean = false;
   showFinalChapter: boolean = false;
@@ -102,6 +101,7 @@ export class GenerateStoriesComponent implements OnInit {
 
   chapterControl = new FormControl('');
   finalControl = new FormControl('');
+  chapterContent : string = '';
 
 
 
@@ -110,7 +110,8 @@ export class GenerateStoriesComponent implements OnInit {
     private formBuilder: FormBuilder,
     private generateStoriesService: GenerateStoriesService,
     private voiceAssistantService: VoiceAssistantService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
     ) {
     // Constructor del componente
     this.recognition.lang = 'es-ES';
@@ -169,6 +170,7 @@ else
 
       // Asigna la historia generada a la variable
       this.generatedStoryOpening = generatedStoryOpening;
+      this.chapterContent = generatedStoryOpening;
 
       //Imagen
       const image = response.image_chapter;
@@ -211,6 +213,7 @@ else
 
       // Asigna la historia generada a la variable
       this.generatedNewChapter = generatedNewChapter;
+      this.chapterContent = generatedNewChapter;
 
       //Imagen
       const image = response.image_chapter;
@@ -248,6 +251,7 @@ else
 
       // Asigna la historia generada a la variable
       this.generatedFinalChapter = generatedFinalChapter;
+      this.chapterContent = generatedFinalChapter;
 
       //Imagen
       const image = response.image_chapter;
@@ -279,6 +283,15 @@ else
     }
     
     
+  }
+
+  openQuestionDialog(): void {
+    const dialogRef = this.dialog.open(QuestionChapterComponent, {
+      width: '600px', // Ancho del diálogo
+      height: '360px', // ajusta el alto según sea necesario
+      data: { chapter: this.chapterContent }, // Aquí puedes pasar la pregunta que desees
+      disableClose: true // Evita que se cierre al hacer clic fuera del diálogo
+    });
   }
 
   onClick(){

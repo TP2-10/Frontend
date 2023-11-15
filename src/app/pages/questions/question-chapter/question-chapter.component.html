@@ -1,0 +1,32 @@
+<div class="loading-overlay" *ngIf="loading">
+    <div class="loading-spinner"></div>
+    <p>Cargando pregunta...</p>
+</div>
+<!-- Mostrar las preguntas -->
+<div class="story-container-2">
+    <!-- Aquí mostrarás las preguntas -->
+    <div *ngFor="let question of generatedQuestions" class="question-container">
+      <h3 class="question-text">*{{ question.question_text }}</h3>
+      <ul class="options-list">
+        <li *ngFor="let option of question.options" class="option-item">
+          <label>
+            <mat-checkbox [(ngModel)]="option.isSelected" class="option-checkbox" (change)="onCheckboxChange(question.id, option)">{{ option.text }}</mat-checkbox>
+          </label>
+        </li>
+      </ul>
+    </div>
+</div>
+  
+<div *ngIf="generatedQuestions">
+    <button mat-raised-button color="primary" class="verify-button" (click)="checkAnswers()">Verificar Respuestas</button>
+</div>
+  
+  <!-- Muestra la calificación -->
+<div *ngIf="showScore" [ngStyle]="{'background-color': scoreColor}" class="show-score score-container">
+    <h1 *ngIf="answerCorrect" class="answer-text">¡Bien hecho!</h1>
+    <h1 *ngIf="answerIncorrect" class="answer-text">¡Inténtalo de nuevo!</h1>
+</div>
+  
+  
+  
+  

@@ -1,71 +1,72 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { QuestionService } from './question.service';
-
-interface Question {
-  id: string;
-  options: string[];
-  question_text: string;
-}
+import { Component, Inject, OnInit   } from '@angular/core';
+import { QuestionService } from '../question.service'; 
+import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.css']
+  selector: 'app-question-chapter',
+  templateUrl: './question-chapter.component.html',
+  styleUrls: ['./question-chapter.component.css']
 })
-export class QuestionsComponent {
+export class QuestionChapterComponent implements OnInit {
 
   storyId: number;
   generatedQuestions: any;
+  answerCorrect: boolean = false;
+  answerIncorrect : boolean = false;
   selectedOptions: any[] = [];
   answersForQuestions: { [questionId: number]: string } = {};
   answersForQuestionss: any[] = [];
-  question: Question;
   options: any
   selectedOptionsForQuestions: { [questionId: number]: string } = {};
   questionsIds: any[] = []
   totalScore: number = 0;
   scorePerQuestion: number = 4;
   showScore: boolean = false;
+  chapterContent: string
+  loading: boolean = false;
   
   constructor(
-    private route: ActivatedRoute, 
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private dialogRef: MatDialogRef<QuestionChapterComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
     ) 
-    {}
+    {
+      this.chapterContent = this.data.chapter;
+      console.log('El capítulo generado es:', JSON.stringify(this.chapterContent));
+    }
   
   ngOnInit() {
-    this.route.params.subscribe((params) => {
-      this.storyId = +params['id'];
 
-      if(this.storyId){
-        // Llama al servicio para obtener la historia por su ID
-        this.questionService.getQuestionByStory(this.storyId).subscribe((response: any) => {
-          this.generatedQuestions = response.questions;
-          for(const question of this.generatedQuestions){
-            const answer = question.options[question.options.length - 1]
-            const correctAnswer = answer.substring("Correct answer: ".length);
-            const questionId = question.id
-            this.questionsIds.push(questionId)
-            this.answersForQuestions[questionId] = correctAnswer
-            this.answersForQuestionss.push({ questionId, answer: correctAnswer });
-          }
-          console.log(JSON.stringify(this.answersForQuestionss))
-          console.log(this.answersForQuestions)
-          console.log(this.questionsIds)
-          //this.selectedOptions[this.generatedQuestions[0].id] = this.generatedQuestions[0].options[0]
-          //this.selectedOptions[this.generatedQuestions[1].id] = this.generatedQuestions[1].options[1]
-          //console.log(`Checkbox change for question ${this.generatedQuestions[0].id} - Option: ${this.generatedQuestions[0].options[0]}`);
-          //console.log(`Checkbox change for question ${this.generatedQuestions[1].id} - Option: ${this.generatedQuestions[1].options[1]}`);
-          this.transformQuestions()
-          console.log(JSON.stringify(this.generatedQuestions));
-          
-      
-        });
+    this.loading = true;
+
+    const questionRequest = {
+      chapter: this.chapterContent
+
+    };
+    // Llama al servicio para obtener la historia por su ID
+    this.questionService.generateQuestionForChapter(questionRequest).subscribe((response: any) => {
+      this.generatedQuestions = response;
+      console.log('Pregunta generada:', JSON.stringify(this.generatedQuestions));
+      for(const question of this.generatedQuestions){
+        const answer = question.options[question.options.length - 1]
+        const correctAnswer = answer.substring("Respuesta correcta: ".length);
+        const questionId = question.id
+        this.questionsIds.push(questionId)
+        this.answersForQuestions[questionId] = correctAnswer
+        this.answersForQuestionss.push({ questionId, answer: correctAnswer });
+        this.loading = false;
       }
-
+      console.log(JSON.stringify(this.answersForQuestionss))
+      console.log(this.answersForQuestions)
+      console.log(this.questionsIds)
+    
+      this.transformQuestions()
+      console.log(JSON.stringify(this.generatedQuestions));
       
+  
     });
+    
   }
 
   checkAnswers() {
@@ -76,23 +77,22 @@ export class QuestionsComponent {
       console.log("Opcion correcta " + this.answersForQuestions[question.questionId])
       if(question.text === this.answersForQuestions[question.questionId]){
         this.totalScore += this.scorePerQuestion;
+        this.answerCorrect = true
+        this.answerIncorrect = false
         console.log("Pregunta " + question.id + ": correcta")
+        this.dialogRef.disableClose = false;
 
       }else{
+        this.answerCorrect = false
+        this.answerIncorrect = true
         console.log("Pregunta " + question.id + ": incorrecta")
       }
 
     }
 
     this.showScore = true;
-    // Itera a través de las preguntas y verifica las respuestas
     
-    //for (const question of this.generatedQuestions) {
-    //  const correctAnswer = this.answersForQuestions[question.id];
-    //  const selectedOption = question.correctAnswer; // Supongamos que cada pregunta tiene una propiedad correctAnswer
-  //
-    //  question.isAnsweredCorrectly = selectedOption === correctAnswer;
-    //}
+
   }
 
   onCheckboxChange2(questionId: number, option: any) {
@@ -152,9 +152,7 @@ export class QuestionsComponent {
   }
 
   public get scoreColor(): string {
-    return this.totalScore < 10 ? 'red' : 'green';
+    return this.answerCorrect? 'green' : 'red';
   }
-  
-  
 
 }

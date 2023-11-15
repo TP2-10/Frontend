@@ -98,8 +98,12 @@
       {{ generatedNewChapter }}
     </pre>
   </div>
-  
-  <!-- Formulario para la entrada del usuario -->
+
+  <!-- Boton que muestra el pop up con las preguntas -->
+  <button mat-raised-button color="primary" class="button-spacing button-animation" style="background-color: #fce80b; color: #fff;" 
+    (click)="openQuestionDialog()" >PREGUNTA</button>
+    
+  <!-- Boton que muestra la continuacion de la historia -->
   <button mat-raised-button color="primary" class="button-spacing button-animation" style="background-color: #fce80b; color: #fff;" 
     (click)="continueStory()">Continuar historia</button>
 </div>
@@ -147,6 +151,9 @@
         {{ generatedFinalChapter }}
     </pre>
   </div>
+
+  <button mat-raised-button color="primary" class="button-spacing button-animation" style="background-color: #fce80b; color: #fff;" 
+    (click)="openQuestionDialog()">PREGUNTA</button>
 
 </div>
 
