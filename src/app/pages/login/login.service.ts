@@ -6,13 +6,14 @@ import { FormGroup } from '@angular/forms';
 import { Observable, map } from 'rxjs';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private apiUrl = 'http://localhost:5000';
+  private apiUrl = environment.urlAddress;
   private isLogged: boolean = false;
 
   constructor(private http: HttpClient) { }

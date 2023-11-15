@@ -86,6 +86,7 @@ export class QuestionChapterComponent implements OnInit {
         this.answerCorrect = false
         this.answerIncorrect = true
         console.log("Pregunta " + question.id + ": incorrecta")
+        this.dialogRef.disableClose = true;
       }
 
     }

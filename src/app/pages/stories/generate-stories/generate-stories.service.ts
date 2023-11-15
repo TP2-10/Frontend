@@ -3,14 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GenerateStoriesService {
 
-  //private apiUrl = 'http://localhost:8080/api/v1/questions';
-  private apiUrlpython = 'http://localhost:5000'; 
+  private apiUrlpython = environment.urlAddress; 
   
   constructor(private http: HttpClient) { }
 
@@ -100,12 +100,12 @@ export class GenerateStoriesService {
         'Authorization': 'Bearer ' + jwtToken // Agregar el token JWT como encabezado
       })
     };
-    //const url = `http://tu-servidor.com/stories/${storyId}`; // Reemplaza con la URL de tu backend
+
     return this.http.get<any>(`${this.apiUrlpython}/stories/${storyId}`, httpOptions);
   }
 
   getImgByStorie(storyId: any) {
-    //const url = `http://tu-servidor.com/stories/${storyId}`; // Reemplaza con la URL de tu backend
+
     return this.http.get<any>(`${this.apiUrlpython}/stories/${storyId}/images`);
   }
 
