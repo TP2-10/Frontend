@@ -13,7 +13,7 @@ import { LoginResponse } from './models/LoginResponse';
 export class LoginComponent implements OnInit {
 
   loginForm : FormGroup;
-  islogin: boolean = false;
+  showError: boolean = false;
 
   loginRequest: LoginRequest;
   loginResponse: LoginResponse;
@@ -63,19 +63,17 @@ export class LoginComponent implements OnInit {
       console.log(transformedData);
       this.loginResponse = transformedData
       //console.log(JSON.stringify(loginres.response));
-      if(this.loginResponse.access_token != null){
-        this.islogin = false
-        this.router.navigate(['dashboard']);
-      }else{
-        console.log(this.loginResponse);
-        this.islogin = true
-        this.errorStatus = true;
-        this.errorMsj = "ERROR CREDENCIAL INCORRECTAS";
-        console.log('ERRORORORORO',this.errorStatus)
-
-      }
+      this.loginservice.setLoggedIn(true)
+      this.showError = false
+      this.router.navigate(['dashboard'])
       
-      
+    },
+    error => {
+      console.error('Error login user:', error);
+      this.showError = true
+      this.errorStatus = true;
+      this.errorMsj = "ERROR CREDENCIAL INCORRECTAS";
+      // Manejo de errores: mostrar un mensaje al usuario, etc.
     })
 
   }

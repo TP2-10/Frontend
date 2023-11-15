@@ -9,6 +9,7 @@ import { GenerateStoriesComponent } from './pages/stories/generate-stories/gener
 import { StoriesComponent } from './pages/stories/Component/stories.component';
 import { QuestionsComponent } from './pages/questions/questions.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
@@ -36,7 +37,7 @@ const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    //canActivate: [AuthenticationGuard, VerificarTokenGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',

@@ -33,7 +33,7 @@ export class GenerateStoriesService {
     
 
 
-    return this.http.post<any>(`${this.apiUrlpython}/stories`, storyRequest)
+    return this.http.post<any>(`${this.apiUrlpython}/stories`, storyRequest, httpOptions)
     
   }
 
@@ -94,8 +94,14 @@ export class GenerateStoriesService {
 
   // Este método obtendrá una historia por su ID
   getStoryById(storyId: any) {
+    const jwtToken = localStorage.getItem('access_token'); // Obtén el token del almacenamiento local
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + jwtToken // Agregar el token JWT como encabezado
+      })
+    };
     //const url = `http://tu-servidor.com/stories/${storyId}`; // Reemplaza con la URL de tu backend
-    return this.http.get<any>(`${this.apiUrlpython}/stories/${storyId}`);
+    return this.http.get<any>(`${this.apiUrlpython}/stories/${storyId}`, httpOptions);
   }
 
   getImgByStorie(storyId: any) {

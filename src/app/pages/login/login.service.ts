@@ -13,6 +13,7 @@ import { catchError } from 'rxjs/operators';
 export class LoginService {
 
   private apiUrl = 'http://localhost:5000';
+  private isLogged: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -24,15 +25,27 @@ export class LoginService {
         console.log('Res = ' , data);
         ({ access_tokend: data.access_token, message: data.message})
         //this.saveLocalStorage(res);
-        //localStorage.setItem('jwtToken', res.token);
-        //localStorage.setItem('openaiApiKey', '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');
+        localStorage.setItem('jwtToken', data.access_token);
+        //localStorage.setItem('openaiApiKey', '');
         //this.res.next(res);
         return data;
 
-      }),
-      catchError((err) => this.handlerError(err))
+      })
     );
 
+  }
+
+  setLoggedIn(status: boolean) {
+    this.isLogged = status;
+  }
+
+  isLoggedIn(): boolean {
+    return this.isLogged;
+  }
+
+  logOut(): void {
+    localStorage.removeItem('jwtToken');
+    // Puedes realizar otras acciones de limpieza si es necesario
   }
 
   private saveLocalStorage(ResLogin: LoginResponse): void {

@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
+import { LoginService } from 'src/app/pages/login/login.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -27,7 +28,10 @@ export class SidenavComponent {
 
   private _mobileQueryListener: () => void;
 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(
+    private loginService: LoginService,
+    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher
+    ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -38,5 +42,11 @@ export class SidenavComponent {
   }
 
   shouldRun = true;
+
+  logout(navItem: any): void {
+    if (navItem.name === 'Salir') {
+      this.loginService.logOut(); // Llama a la función logOut del servicio AuthenticationService solo si la opción seleccionada es "Salir"
+    }
+  }
 
 }

@@ -9,7 +9,7 @@
       <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list class="example-nav-list">
-          <a mat-list-item [routerLink]="nav.route" *ngFor="let nav of fillerNav" class="example-nav-item">
+          <a mat-list-item (click)="logout(nav)" [routerLink]="nav.route" *ngFor="let nav of fillerNav" class="example-nav-item">
             <mat-icon>{{nav.icon}}</mat-icon>
             {{nav.name}}</a>
         </mat-nav-list>
