@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
       console.log(transformedData);
       this.loginResponse = transformedData
       //console.log(JSON.stringify(loginres.response));
+      localStorage.setItem('jwtToken', transformedData.access_token);
       this.loginservice.setLoggedIn(true)
       this.showError = false
       this.router.navigate(['dashboard'])

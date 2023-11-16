@@ -26,7 +26,7 @@ export class LoginService {
         console.log('Res = ' , data);
         ({ access_tokend: data.access_token, message: data.message})
         //this.saveLocalStorage(res);
-        localStorage.setItem('jwtToken', data.access_token);
+        //localStorage.setItem('jwtToken', data.access_token);
         //localStorage.setItem('openaiApiKey', '');
         //this.res.next(res);
         return data;

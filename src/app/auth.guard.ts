@@ -13,8 +13,9 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+      const jwtToken = localStorage.getItem('jwtToken');
       // Verificar si el usuario está autenticado (lógica depende de tu servicio de autenticación)
-    if (this.loginService.isLoggedIn()) {
+    if (jwtToken) {
       return true; // Permite el acceso a la ruta
     } else {
       // Redirige al componente de inicio de sesión si el usuario no está autenticado
